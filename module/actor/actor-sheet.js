@@ -276,7 +276,6 @@ export class DeadlandscActorSheet extends ActorSheet {
   }
 
   async _onInitiative(event) {
-    console.log('bonjour')
     let lignes=[];
     let content=[];
     let actorData = this.actor.system;
@@ -319,7 +318,7 @@ export class DeadlandscActorSheet extends ActorSheet {
 
   }
   Tirer() {
-    let actorData = this.system;
+    let actorData = this.actor.system;
     let carte = [];
     //Tirage d'une carte
       carte=actorData.deck.pop();
@@ -340,15 +339,15 @@ export class DeadlandscActorSheet extends ActorSheet {
       actorData.defausse=[];
     }
     //mise à jour des decks
-    this.update({
-      'data.deck': actorData.deck,
-      'data.defausse': actorData.defausse,
+    this.actor.update({
+      'system.deck': actorData.deck,
+      'system.defausse': actorData.defausse,
     });
     return carte;
   }
 
   Melange() {
-    let actorData = this.system;
+    let actorData = this.actor.system;
     //rappel de la defausse
     actorData.deck=actorData.deck.concat(actorData.defausse);
     //mélange du deck
@@ -360,9 +359,9 @@ export class DeadlandscActorSheet extends ActorSheet {
     actorData.deck[i] = t;
     }
     //mise à jour des decks
-    this.update({
-      'data.deck': actorData.deck,
-      'data.defausse': [],
+    this.actor.update({
+      'system.deck': actorData.deck,
+      'system.defausse': [],
     });
   }
 
@@ -378,7 +377,7 @@ export class DeadlandscActorSheet extends ActorSheet {
       let actorData = this.system;
       if (actorData.souffle > 0) {
           await this.update({
-              'data.souffle': actorData.souffle - 1,
+              'system.souffle': actorData.souffle - 1,
           });
       }
   }
@@ -392,26 +391,26 @@ export class DeadlandscActorSheet extends ActorSheet {
         content: message,
     };
         ChatMessage.create(chatData);
-    let actorData = this.system;
-    await this.update({
-        'data.souffle': actorData.souffle + 1,
+    let actorData = this.actor.system;
+    await this.actor.update({
+        'system.souffle': actorData.souffle + 1,
     });
   } 
 
   async BlessurePlus(loc){
-    let actorData = this.system;
+    let actorData = this.actor.system;
     if (actorData[loc] < 5) {
       await this.update({      
-        ['data.' + loc]: actorData[loc] + 1,
+        ['system.' + loc]: actorData[loc] + 1,
       });
     }
   }
 
   async BlessureMoins(loc){
-    let actorData = this.system;
+    let actorData = this.actor.system;
     if (actorData[loc] > 0) {
-      await this.update({
-        ['data.' + loc]: actorData[loc] - 1,
+      await this.actor.update({
+        ['system.' + loc]: actorData[loc] - 1,
       });
     }
   }
