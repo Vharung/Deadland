@@ -136,84 +136,84 @@ export class DeadlandscActorSheet extends ActorSheet {
 
     //PS + 1
     html.find('.PSadd').on('click', () => {
-      this.actor.PSplus();
+      this.PSplus();
     });
 
     //PS - 1
     html.find('.PSsub').on('click', () => {
-        this.actor.PSmoins();
+        this.PSmoins();
     });
 
     //Blessure tête + 1
     html.find('.btete').on('click', () => {
       //this.actor.BlessureTetePlus();
-      this.actor.BlessurePlus("btete");
+      this.BlessurePlus("btete");
     });
     
     //Blessure tête - 1
     html.find('.btete').on('contextmenu', () => {
       //this.actor.BlessureTeteMoins();
-      this.actor.BlessureMoins("btete");
+      this.BlessureMoins("btete");
     });
 
     //Blessure bras gauche + 1
     html.find('.bbrasgauche').on('click', () => {
-      this.actor.BlessurePlus("bbrasgauche");
+      this.BlessurePlus("bbrasgauche");
     });
     
     //Blessure bras gauche - 1
     html.find('.bbrasgauche').on('contextmenu', () => {
-      this.actor.BlessureMoins("bbrasgauche");
+      this.BlessureMoins("bbrasgauche");
     });
 
     //Blessure bras droit + 1
     html.find('.bbrasdroit').on('click', () => {
-      this.actor.BlessurePlus("bbrasdroit");
+      this.BlessurePlus("bbrasdroit");
     });
     
     //Blessure bras droit - 1
     html.find('.bbrasdroit').on('contextmenu', () => {
-      this.actor.BlessureMoins("bbrasdroit");
+      this.BlessureMoins("bbrasdroit");
     });
 
     //Blessure tripes + 1
     html.find('.btripes').on('click', () => {
-      this.actor.BlessurePlus("btripes");
+      this.BlessurePlus("btripes");
     });
     
     //Blessure tripes - 1
     html.find('.btripes').on('contextmenu', () => {
-      this.actor.BlessureMoins("btripes");
+      this.BlessureMoins("btripes");
     });
 
     //Blessure jambe gauche + 1
     html.find('.bjambegauche').on('click', () => {
-      this.actor.BlessurePlus("bjambegauche");
+      this.BlessurePlus("bjambegauche");
     });
     
     //Blessure jambe gauche - 1
     html.find('.bjambegauche').on('contextmenu', () => {
-      this.actor.BlessureMoins("bjambegauche");
+      this.BlessureMoins("bjambegauche");
     });
 
     //Blessure jambe droite + 1
     html.find('.bjambedroite').on('click', () => {
-      this.actor.BlessurePlus("bjambedroite");
+      this.BlessurePlus("bjambedroite");
     });
     
     //Blessure jambe droite - 1
     html.find('.bjambedroite').on('contextmenu', () => {
-      this.actor.BlessureMoins("bjambedroite");
+      this.BlessureMoins("bjambedroite");
     });
 
     //Lab Initiative
     html.find('.initbutton').on('click', () => {
-      this.actor.Initiative();
+      this._onInitiative(this);
     });
 
     //Lab Mélanger
     html.find('.melange').on('click', () => {
-      this.actor.Melange();
+      this.Melange();
     });
   
   }
@@ -275,6 +275,145 @@ export class DeadlandscActorSheet extends ActorSheet {
       item.sheet.render(true);
   }
 
+  async _onInitiative(event) {
+    console.log('bonjour')
+    let lignes=[];
+    let content=[];
+    let actorData = this.actor.system;
+    let serie = [];
+    let nb = 2;
+    let messageJoker="";
+    //Tirage de nb cartes
+    //Tirage de nb cartes
+    while (nb)
+    {
+      serie = this.Tirer();
+      content.push(serie[0]+" "+serie[1]);
+      lignes.push(serie[2]);
+      // Détection des Joker
+      if (serie[0]=="J") {
+        if (serie[1]=="coeur") {
+          messageJoker = messageJoker + game.i18n.localize("MESSAGE.JR")+'\r';
+        }
+        else {
+          messageJoker = messageJoker + game.i18n.localize("MESSAGE.JN")+'\r';
+        }
+      }
+      nb--;
+    }
   
+    // preparation du message
+    let message = await renderTemplate('systems/deadlandsc/templates/message/Init.html', {
+      target: this,
+      speaker: game.user,
+      lignes: lignes,
+      content: content,
+      messageJoker: messageJoker,
+    });
+
+    //envoi du message dans le chat
+    let chatData = {
+      content: message,
+    };
+    ChatMessage.create(chatData);
+
+  }
+  Tirer() {
+    let actorData = this.system;
+    let carte = [];
+    //Tirage d'une carte
+      carte=actorData.deck.pop();
+      actorData.defausse.push(carte);
+    //mélange du deck si la carte est le valet noir
+    if (carte[0] == "J" && carte[1] == "pique") {
+      //rappel de la defausse
+      actorData.deck=actorData.deck.concat(actorData.defausse);
+      //mélange du deck
+      var j = actorData.deck.length, t, i;
+      while (j) {
+      i = Math.floor(Math.random() * j--);
+      t = actorData.deck[j];
+      actorData.deck[j] = actorData.deck[i];
+      actorData.deck[i] = t;
+      }
+      //raz de la defausse
+      actorData.defausse=[];
+    }
+    //mise à jour des decks
+    this.update({
+      'data.deck': actorData.deck,
+      'data.defausse': actorData.defausse,
+    });
+    return carte;
+  }
+
+  Melange() {
+    let actorData = this.system;
+    //rappel de la defausse
+    actorData.deck=actorData.deck.concat(actorData.defausse);
+    //mélange du deck
+    var j = actorData.deck.length, t, i;
+    while (j) {
+    i = Math.floor(Math.random() * j--);
+    t = actorData.deck[j];
+    actorData.deck[j] = actorData.deck[i];
+    actorData.deck[i] = t;
+    }
+    //mise à jour des decks
+    this.update({
+      'data.deck': actorData.deck,
+      'data.defausse': [],
+    });
+  }
+
+  async PSmoins() {
+      let message = await renderTemplate('systems/deadlandsc/templates/message/PSM.html', {
+          target: this,
+          speaker: game.user,
+      });
+      let chatData = {
+          content: message,
+      };
+          ChatMessage.create(chatData);
+      let actorData = this.system;
+      if (actorData.souffle > 0) {
+          await this.update({
+              'data.souffle': actorData.souffle - 1,
+          });
+      }
+  }
+
+  async PSplus() {
+    let message = await renderTemplate('systems/deadlandsc/templates/message/PSP.html', {
+        target: this,
+        speaker: game.user,
+    });
+    let chatData = {
+        content: message,
+    };
+        ChatMessage.create(chatData);
+    let actorData = this.system;
+    await this.update({
+        'data.souffle': actorData.souffle + 1,
+    });
+  } 
+
+  async BlessurePlus(loc){
+    let actorData = this.system;
+    if (actorData[loc] < 5) {
+      await this.update({      
+        ['data.' + loc]: actorData[loc] + 1,
+      });
+    }
+  }
+
+  async BlessureMoins(loc){
+    let actorData = this.system;
+    if (actorData[loc] > 0) {
+      await this.update({
+        ['data.' + loc]: actorData[loc] - 1,
+      });
+    }
+  }
 
 }
