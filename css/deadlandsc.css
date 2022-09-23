@@ -51,7 +51,7 @@ input.carac{color:#000;width:30px}
 .img-blessure{position:relative;display:block;bottom:0;margin:0;border:none;padding:0;width: 70%;margin-left: 20px;}
 .blessures{background-image:linear-gradient()}
 .jauge{border:0;width:324px;height:152px;display:block;background-color:hidden;color:#fff;position:relative;text-decoration:none;border-spacing:0;border-collapse:collapse}
-.jauge-remplissage{border:0;transition:all .3s linear 0;background-color:rgba(255,0,0,0.3);width:324px;position:absolute;left:0;bottom:0;border-spacing:0;border-collapse:collapse;z-index:2}
+.jauge-remplissage{border:0;transition:all .3s linear 0;background-color:rgba(255,0,0,0.3);width:265px;position:absolute;left:0;bottom:0;border-spacing:0;border-collapse:collapse;z-index:2}
 .jauge-remplissage-0{height:0;transition:all .3s linear 0}
 .jauge-remplissage-1{height:20%;transition:all .3s linear 0}
 .jauge-remplissage-2{height:40%;transition:all .3s linear 0}

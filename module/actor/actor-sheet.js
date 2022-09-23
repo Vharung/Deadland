@@ -432,7 +432,7 @@ export class DeadlandscActorSheet extends ActorSheet {
   async BlessurePlus(loc){
     let actorData = this.actor.system;
     if (actorData[loc] < 5) {
-      await this.update({      
+      await this.actor.update({      
         ['system.' + loc]: actorData[loc] + 1,
       });
     }
