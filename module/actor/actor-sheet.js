@@ -281,14 +281,47 @@ export class DeadlandscActorSheet extends ActorSheet {
     let actorData = this.actor.system;
     let serie = [];
     let nb = 2;
+    var cardnb='';
+    var cardco='';
     let messageJoker="";
     //Tirage de nb cartes
     //Tirage de nb cartes
     while (nb)
     {
       serie = this.Tirer();
-      content.push(serie[0]+" "+serie[1]);
+      if(serie[0]=='V'){
+        cardnb='V';
+      }else if(serie[0]=='Q'){
+        cardnb='D';
+      }else if(serie[0]=='K'){
+        cardnb='R';
+      }else {
+        cardnb=serie[0];
+      }
+      if(serie[1]=='trefle'){
+        cardco='T';
+      }else if(serie[1]=='pique'){
+        cardco='P';
+      }else if(serie[1]=='coeur'){
+        cardco='C';
+      }else {
+        cardco='D';
+      }
+      /*   
+      if(serie[1]=='trefle'){
+        cardco='♣';cardnb='black';
+      }else if(serie[1]=='pique'){
+        cardco='♠';cardnb='black';
+      }else if(serie[1]=='coeur'){
+        cardco='♥';cardnb='red';
+      }else {
+        cardco='♦';cardnb='red';
+      }*/
+      //content.push(serie[0]+" "+serie[1]);
+      content.push(cardnb+cardco);
       lignes.push(serie[2]);
+       
+      
       // Détection des Joker
       if (serie[0]=="J") {
         if (serie[1]=="coeur") {
@@ -300,7 +333,6 @@ export class DeadlandscActorSheet extends ActorSheet {
       }
       nb--;
     }
-  
     // preparation du message
     let message = await renderTemplate('systems/deadlandsc/templates/message/Init.html', {
       target: this,
@@ -330,10 +362,10 @@ export class DeadlandscActorSheet extends ActorSheet {
       //mélange du deck
       var j = actorData.deck.length, t, i;
       while (j) {
-      i = Math.floor(Math.random() * j--);
-      t = actorData.deck[j];
-      actorData.deck[j] = actorData.deck[i];
-      actorData.deck[i] = t;
+        i = Math.floor(Math.random() * j--);
+        t = actorData.deck[j];
+        actorData.deck[j] = actorData.deck[i];
+        actorData.deck[i] = t;
       }
       //raz de la defausse
       actorData.defausse=[];

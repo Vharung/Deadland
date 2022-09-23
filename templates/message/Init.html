@@ -1,12 +1,12 @@
 <div>
     {{target.name}} 
-    {{localize "MESSAGE.Init"}} 
+    <span style="width: 100%;clear:both;display: block;">{{localize "MESSAGE.Init"}} </span>
     {{#each content as |card|}}
-    <div>{{card}}</div>
+        <img src="systems/deadlandsc/assets/carte/{{card}}.png" style="width: 25%;float: left;">
     {{/each}}
-    {{#each lignes as |ligne|}}
-    <div>{{localize ligne}}</div>
-    {{/each}}
+    <!--{{#each lignes as |ligne|}}
+        <img src="systems/deadlandsc/assets/carte/{{ligne}}.png" style="width: 25%;float: left;">
+    {{/each}}-->
     <pre>{{messageJoker}}</pre>
     
   </div>
