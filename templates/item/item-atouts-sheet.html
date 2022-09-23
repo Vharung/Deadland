@@ -1,0 +1,33 @@
+<form class="{{cssClass}}" autocomplete="off">
+    {{!-- Item Sheet Header --}} 
+    {{> "systems/deadlandsc/templates/item/partials/header.html"}}
+    <main class="sheet-body flexrow">
+        <div class="flexrow tab active" data-group="primary" data-tab="summary">
+          <section class="item-stats">
+            <header class="header-field">
+              <span>{{localize "DEADLANDSC.Détails"}}</span>
+            </header>
+            <div class="form-group">
+                <label for="system.cout">{{localize "DEADLANDSC.Cout"}}</label>
+                <span class="form-fields">
+                  <input
+                    name="system.cout"
+                    type="text"
+                    value="{{item.system.cout}}"
+                    placeholder="{{localize 'DEADLANDSC.Cout'}}"
+                    data-dtype="String"
+                /></span>
+            </div>
+            <div class="form-group">
+                <label for="system.description">{{localize "DEADLANDSC.Desc"}}</label>
+                <span class="form-fields">
+                  <input
+                    name="system.description"
+                    type="text"
+                    value="{{item.system.description}}"
+                    placeholder="{{localize 'DEADLANDSC.Desc'}}"
+                    data-dtype="String"
+                /></span>
+            </div>
+                
+</form>

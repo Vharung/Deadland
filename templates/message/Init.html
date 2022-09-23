@@ -1,0 +1,12 @@
+<div>
+    {{target.name}} 
+    {{localize "MESSAGE.Init"}} 
+    {{#each content as |card|}}
+    <div>{{card}}</div>
+    {{/each}}
+    {{#each lignes as |ligne|}}
+    <div>{{localize ligne}}</div>
+    {{/each}}
+    <pre>{{messageJoker}}</pre>
+    
+  </div>

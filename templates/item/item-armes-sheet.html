@@ -1,0 +1,148 @@
+<form class="{{cssClass}}" autocomplete="off">
+  {{!-- Item Sheet Header --}} 
+  {{> "systems/deadlandsc/templates/item/partials/header.html"}}
+  <main class="sheet-body flexrow">
+    <div class="flexrow tab active" data-group="primary" data-tab="summary">
+      <section class="item-stats">
+        <header class="header-field">
+          <span>{{localize "DEADLANDSC.Détails"}}</span>
+        </header>
+        <div class="form-group">
+          <label class="check-container"
+            >{{localize "DEADLANDSC.Equipé"}}
+            <input
+              type="checkbox"
+              name="system.Equipé"
+              {{checked
+              item.system.equipé}}
+              data-dtype="Boolean"
+            />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="check-container"
+            >{{localize "DEADLANDSC.AutoReload"}}
+            <input
+              type="checkbox"
+              name="system.autoReload"
+              {{checked
+              item.system.autoReload}}
+              data-dtype="Boolean"
+            />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="system.chargeur">{{localize "DEADLANDSC.Chargeur"}}</label>
+          <span class="form-fields">
+            <input
+              name="system.chargeur"
+              type="text"
+              value="{{item.system.chargeur}}"
+              placeholder="{{localize 'DEADLANDSC.Chargeur'}}"
+              data-dtype="String"
+            />
+            <input
+              name="system.coups"
+              type="text"
+              value="{{item.system.coups}}"
+              placeholder="0"
+              data-dtype="String"
+            />
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="system.dommage">{{localize "DEADLANDSC.Dommage"}}</label>
+          <span class="form-fields">
+            <input
+              name="system.dommage"
+              type="text"
+              value="{{item.system.dommage}}"
+              placeholder="{{localize 'DEADLANDSC.Dommage'}}"
+              data-dtype="String"
+          /></span>
+        </div>
+        <div class="form-group">
+          <label for="system.portée">{{localize "DEADLANDSC.Portée"}}</label>
+          <span class="form-fields">
+            <input
+              name="system.portée"
+              type="text"
+              value="{{item.system.portée}}"
+              placeholder="{{localize 'DEADLANDSC.Portée'}}"
+              data-dtype="String"
+          /></span>
+        </div>
+        <div class="form-group">
+          <label for="system.CDT">{{localize "DEADLANDSC.CDT"}}</label>
+          <span class="form-fields">
+            <input
+              name="system.CDT"
+              type="text"
+              value="{{item.system.CDT}}"
+              placeholder="{{localize 'DEADLANDSC.CDT'}}"
+              data-dtype="String"
+          /></span>
+        </div>
+        <div class="form-group">
+          <label for="system.prix">{{localize "DEADLANDSC.Prix"}}</label>
+          <span class="form-fields">
+            <input
+              name="system.prix"
+              type="text"
+              value="{{item.system.prix}}"
+              placeholder="{{localize 'DEADLANDSC.Prix'}}"
+              data-dtype="Number"
+          /></span>
+        </div>
+        <div class="form-group">
+          <label for="system.poids">{{localize "DEADLANDSC.Poids"}}</label>
+          <span class="form-fields">
+            <input
+              name="system.poids"
+              type="text"
+              value="{{item.system.poids}}"
+              placeholder="{{localize 'DEADLANDSC.Poids'}}"
+              data-dtype="Number"
+          /></span>
+        </div>
+        <div class="form-group">
+          <label for="system.quantité">{{localize "DEADLANDSC.Quantité"}}</label>
+          <span class="form-fields">
+            <input
+              name="system.quantité"
+              type="text"
+              value="{{item.system.quantité}}"
+              placeholder="{{localize 'DEADLANDSC.Quantité'}}"
+              data-dtype="Number"
+          /></span>
+        </div>
+        <div class="form-group">
+          <label for="system.formin">{{localize "DEADLANDSC.Formin"}}</label>
+          <span class="form-fields">
+            <input
+              name="system.formin"
+              type="text"
+              value="{{item.system.formin}}"
+              placeholder="{{localize 'DEADLANDSC.Formin'}}"
+              data-dtype="String"
+          /></span>
+        </div>
+      </section>
+      <section>
+        {{> "systems/deadlandsc/templates/item/partials/description.html"}}
+      </section>
+    </div>
+    <div class="tab" data-group="primary" data-tab="actions-effects">
+      {{> "systems/deadlandsc/templates/item/partials/actions.html"}}
+      <header class="header-field flexrow">
+        <span style="flex: 1;">{{localize "DEADLANDSC.Effets"}}</span>
+        <a class="header-field-add add-effect" data-transfer="true">
+          <i class="fa fa-plus"></i>
+        </a>
+      </header>
+      <br />
+    </div>
+  </main>
+</form>

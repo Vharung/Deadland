@@ -1,0 +1,72 @@
+@import "https://fonts.googleapis.com/css2?family=Martel:wght@400;800&family=Roboto:wght@300;400;500&display=swap";
+@font-face{font-family:"Docktrin";font-style:normal;font-weight:400;src:url(../fonts/docktrin.ttf) format("truetype")}
+.window-app{font-family:"Docktrin",sans-serif}
+.window-app .window-content{background: url(../assets/parchemin.jpg);background-size: cover;}
+.window-app.actor .window-content{background:url(../assets/wood.jpg);background-size: contain;}
+.imgcenter{display:block;margin-left:auto;margin-right:auto;width:40%;height:80%}
+.rollable:hover,.rollable:focus{color:#000;text-shadow:0 0 10px red;cursor:pointer}
+.grid,.grid-2col{display:grid;grid-column:span 2 / span 2;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0;padding:0}
+.col2{width: 49%;display: inline-block;float: left}
+.grid-3col{grid-column:span 3 / span 3;grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4col{grid-column:span 4 / span 4;grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid-5col{grid-column:span 5 / span 5;grid-template-columns:repeat(5,minmax(0,1fr))}
+.grid-6col{grid-column:span 5 / span 5;grid-template-columns:repeat(5,minmax(0,1fr))}
+.grid-7col{grid-column:span 7 / span 7;grid-template-columns:repeat(7,minmax(0,1fr))}
+.grid-8col{grid-column:span 8 / span 8;grid-template-columns:repeat(8,minmax(0,1fr))}
+.grid-9col{grid-column:span 9 / span 9;grid-template-columns:repeat(9,minmax(0,1fr))}
+.grid-10col{grid-column:span 10 / span 10;grid-template-columns:repeat(10,minmax(0,1fr))}
+.grid-11col{grid-column:span 11 / span 11;grid-template-columns:repeat(11,minmax(0,1fr))}
+.grid-12col{grid-column:span 12 / span 12;grid-template-columns:repeat(12,minmax(0,1fr))}
+.flex-group-center,.flex-group-left,.flex-group-right{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:start;text-align:center;padding:5px;}
+.flex-group-left{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:left}
+.flex-group-right{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:right}
+.flex-center{-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}
+.flex-between{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}
+.deadlandsc .item-form{font-family:"Roboto",sans-serif}
+.deadlandsc .sheet-header{background-repeat:no-repeat;background-position:top;-webkit-box-flex:0;-ms-flex:0 0 210px;flex:0 0 210px;overflow:hidden;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;margin-bottom:10px}
+.deadlandsc .sheet-header .profile-img{-webkit-box-flex:0;-ms-flex:0 0 100px;flex:0 0 100px;height:100px;margin-right:10px;justify-content:center}
+.deadlandsc .sheet-header .header-fields{-webkit-box-flex:1;-ms-flex:1;flex:1}
+.deadlandsc .sheet-header h1.charname{height:45px;padding:0;margin:5px 0;border-bottom:0}
+.deadlandsc .sheet-header h1.charname input{width:100%;height:100%;margin:0}
+.deadlandsc .sheet-tabs{-webkit-box-flex:0;-ms-flex:0;flex:0}
+.deadlandsc .sheet-body,.deadlandsc .sheet-body .tab,.deadlandsc .sheet-body .tab .editor{height:170px}
+.deadlandsc .tox .tox-editor-container{background:#fff}
+.deadlandsc .tox .tox-edit-area{padding:0 8px}
+.deadlandsc .resource-label{font-weight:700;text-transform:uppercase}
+.deadlandsc .tabs{height:40px;border-top:1px solid #AAA;border-bottom:1px solid #AAA}
+.deadlandsc .tabs .item{line-height:40px;font-weight:700;background: url(../assets/parchemin.jpg);float: left}
+.deadlandsc.sheet nav.sheet-tabs .item.active,.deadlandsc.sheet nav.sheet-tabs .item:hover{text-decoration:underline;text-shadow:none;filter: inherit;}
+.deadlandsc .items-list{list-style:none;margin:7px 0;padding:0;overflow-y:auto}
+.deadlandsc .items-list .item-header{font-weight:700}
+.deadlandsc .items-list .item{height:30px;line-height:24px;padding:3px 0;border-bottom:1px solid #BBB}
+.deadlandsc .items-list .item .item-image{-webkit-box-flex:0;-ms-flex:0 0 24px;flex:0 0 24px;margin-right:5px}
+.deadlandsc .items-list .item img{display:block}
+.deadlandsc .items-list .item-name{margin:0}
+.deadlandsc .items-list .item-controls{-webkit-box-flex:0;-ms-flex:0 0 86px;flex:0 0 86px;text-align:right}
+.deadlandsc .avis{background: url(../assets/parchemin.jpg);height: 690px;box-shadow: 7px 5px 5px -2px rgba(0,0,0,0.74);}
+input.carac{color:#000;width:30px}
+.caracheader{color:#000;display:inline-block;width:100%;text-align:left}
+.caraclabel{color:#000;display:inline-block;width:50%;text-align:left}
+.caracdice{display:inline-block;width:30%}
+.img-blessure{position:relative;display:block;bottom:0;margin:0;border:none;padding:0;width: 70%;margin-left: 20px;}
+.blessures{background-image:linear-gradient()}
+.jauge{border:0;width:324px;height:152px;display:block;background-color:hidden;color:#fff;position:relative;text-decoration:none;border-spacing:0;border-collapse:collapse}
+.jauge-remplissage{border:0;transition:all .3s linear 0;background-color:rgba(255,0,0,0.3);width:324px;position:absolute;left:0;bottom:0;border-spacing:0;border-collapse:collapse;z-index:2}
+.jauge-remplissage-0{height:0;transition:all .3s linear 0}
+.jauge-remplissage-1{height:20%;transition:all .3s linear 0}
+.jauge-remplissage-2{height:40%;transition:all .3s linear 0}
+.jauge-remplissage-3{height:60%;transition:all .3s linear 0}
+.jauge-remplissage-4{height:80%;transition:all .3s linear 0}
+.jauge-remplissage-5{height:100%;transition:all .3s linear 0}
+.deadlandsc h1.wanted{font-size: 10em;text-align: center;width: 100%;display: inline-block;border-bottom: none;height:130px;}
+.deadlandsc h2.dead{font-size: 4em;border-bottom: none;text-align: center;}
+.deadlandsc h4.nomprime {font-size: 3em;text-align: center;}
+.deadlandsc h4.valeurprime{font-size: 4em;text-align: center;}
+.deadlandsc .bois{background: url(../assets/parchemin.jpg);box-shadow: 7px 5px 5px -2px rgba(0,0,0,0.74);padding: 10px;margin-left: 18px;height: 808px;background-size: cover;}
+.deadlandsc.sheet .editor-content {height: 200px;overflow-y: auto;word-break: break-word;background: #99999973;}
+.deadlandsc.sheet nav.sheet-tabs {border-bottom: none;border-top: none;margin: 0;padding-left: 18px;}
+.deadlandsc.sheet nav.sheet-tabs .item{padding: 0 12px;filter: brightness(0.5)}
+.deadlandsc .tabs{display: block;}
+.clear{clear: both;}
+.deadlandsc textarea{width: 100%;height: 268px;color:#20180d;border:none;resize: none;}
+.deadlandsc .titre{text-align: left;width: 100%;}

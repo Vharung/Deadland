@@ -1,0 +1,142 @@
+{
+  "Actor": {
+    "types": ["PJ", "PNJ"],
+    "templates": {
+      "base": {
+        "metier":"",
+        "mental": {
+          "perception": {
+            "coordination": 1,
+            "de": 4
+          },
+          "connaissances": {
+            "coordination": 1,
+            "de": 4
+          },
+          "charisme": {
+            "coordination": 1,
+            "de": 4
+          },
+          "astuce": {
+            "coordination": 1,
+            "de": 4
+          },
+          "ame": {
+            "coordination": 1,
+            "de": 4
+          }
+        },
+        "physique": {
+          "dexterite": {
+            "coordination": 1,
+            "de": 4
+          },
+          "agilite": {
+            "coordination": 1,
+            "de": 4
+          },
+          "force": {
+            "coordination": 1,
+            "de": 4
+          },
+          "rapidite": {
+            "coordination": 1,
+            "de": 4
+          },
+          "vigueur": {
+            "coordination": 1,
+            "de": 4
+          }
+        },
+        "allure": {
+          "value": 5
+        }
+      },
+      "blessures": {
+        "btete": 0,
+        "bbrasdroit": 0,
+        "bbrasgauche": 0,
+        "btripes": 0,
+        "bjambedroite": 0,
+        "bjambegauche": 0
+      }
+    },
+    "PJ": {
+      "templates": ["base","blessures"],
+      "crédit": 0,
+      "biography": "",
+      "souffle": 0,
+      "skills": {
+        "perception": [{"skill": "Artillerie", "valeur": 0}, {"skill": "Arts : ", "valeur": 0}, {"skill": "Détecter", "valeur": 1}, {"skill": "Pister", "valeur": 0}, {"skill": "Scruter", "valeur": 0}, {"skill": "", "valeur": 0}],
+        "connaissances": [{"skill": "Carrière : ", "valeur": 0}, {"skill": "Territoire région d'origine : ", "valeur": 2}, {"skill": "Territoire Autre", "valeur": 0}, {"skill": "Explosifs", "valeur": 0}, {"skill": "Déguisement", "valeur": 0}, {"skill": "Langue maternelle", "valeur": 2}, {"skill": "Langue autre", "valeur": 0}, {"skill": "Médecine", "valeur": 0}, {"skill": "Métier : ", "valeur": 0}, {"skill": "science : ", "valeur": 0}, {"skill": "Universsalis :", "valeur": 0} , {"skill": "", "valeur": 0}],
+        "charisme": [{"skill": "Autorité : ", "valeur": 0}, {"skill": "Dressage", "valeur": 0}, {"skill": "Eloquence", "valeur": 0}, {"skill": "Intimider", "valeur": 0}, {"skill": "Persuasion", "valeur": 0}, {"skill": "Spectacle : ", "valeur": 0}, {"skill": "", "valeur": 0}],
+        "astuce": [{"skill": "Bidouiller : ", "valeur": 0}, {"skill": "Bluff : ", "valeur": 0}, {"skill": "Conn. de la rue", "valeur": 0}, {"skill": "Dénicher", "valeur": 0}, {"skill": "Jeux", "valeur": 0}, {"skill": "Ridiculiser", "valeur": 0}, {"skill": "Survie : ", "valeur": 0}, {"skill": "", "valeur": 0}],
+        "ame": [{"skill": "Foi", "valeur": 0}, {"skill": "Tripes", "valeur": 0}, {"skill": "", "valeur": 0}],
+        "dexterite": [{"skill": "Arc", "valeur": 0}, {"skill": "Crocheter", "valeur": 0}, {"skill": "Dérober", "valeur": 0}, {"skill": "Lancer", "valeur": 0}, {"skill": "Passe passe", "valeur": 0}, {"skill": "Recharge rapide", "valeur": 0}, {"skill": "Tirer : ", "valeur": 0}, {"skill": "Tirer : ", "valeur": 0}, {"skill": "Ventiler", "valeur": 0}, {"skill": "", "valeur": 0}],
+        "agilite": [{"skill": "Attelage", "valeur": 0}, {"skill": "Combat", "valeur": 0}, {"skill": "Conduire", "valeur": 0}, {"skill": "Equitation", "valeur": 0}, {"skill": "Esquiver", "valeur": 0}, {"skill": "Furtivité", "valeur": 1}, {"skill": "Grimper", "valeur": 1}, {"skill": "Nager", "valeur": 0}, {"skill": "", "valeur": 0}],
+        "force": [{"skill": "", "valeur": 0}],
+        "rapidite": [{"skill": "Dégainer", "valeur": 0}, {"skill": "", "valeur": 0}],
+        "vigueur": [{"skill": "", "valeur": 0}]
+      },
+      "deck": [
+        ["1","coeur","AC",52],["2","coeur","2C",4],["3","coeur","3C",8],["4","coeur","4C",12],["5","coeur","5C",16],["6","coeur","6C",20],["7","coeur","7C",24],["8","coeur","8C",28],["9","coeur","9C",32],["10","coeur","10C",36],["V","coeur","VC",40],["Q","coeur","DC",44],["K","coeur","RC",48],
+        ["1","carreau","AD",51],["2","carreau","2D",3],["3","carreau","3D",7],["4","carreau","4D",11],["5","carreau","5D",15],["6","carreau","6D",19],["7","carreau","7D",23],["8","carreau","8D",27],["9","carreau","9D",31],["10","carreau","10D",35],["V","carreau","VD",39],["Q","carreau","DD",43],["K","carreau","RD",47],
+        ["1","pique","AP",50],["2","pique","2P",2],["3","pique","3P",6],["4","pique","4P",10],["5","pique","5P",14],["6","pique","6P",18],["7","pique","7P",22],["8","pique","8P",26],["9","pique","9P",30],["10","pique","10P",34],["V","pique","VP",38],["Q","pique","DP",42],["K","pique","RP",46],
+        ["1","trefle","AD",49],["2","trefle","2T",1],["3","trefle","3T",5],["4","trefle","4T",9],["5","trefle","5T",13],["6","trefle","6T",17],["7","trefle","7T",21],["8","trefle","8T",25],["9","trefle","9T",29],["10","trefle","10T",33],["V","trefle","VT",37],["Q","trefle","DT",41],["K","trefle","RT",45],
+        ["J","coeur","JR",53],["J","pique","JN",54]
+      ],
+      "defausse":[]
+    },
+    "PNJ": {
+      "templates": ["base"],
+      "biography": ""
+    }
+  },
+  "Item": {
+    "types": ["armes", "objets", "pouvoirs", "atouts", "handicaps", "munitions"],
+    "templates": {
+      "base": {
+        "description": ""
+      },
+      "matos": {
+        "quantité": 1,
+        "poids": 0,
+        "prix": 0
+      },
+      "equipement": {
+        "equipable": false,
+        "equipé": false
+      }
+    },
+    "armes": {
+      "templates": ["base","matos","equipement"],
+      "dommage": "",
+      "portée": "",
+      "CDT": 1,
+      "ap": 0,
+      "formin": "",
+      "coups": 0,
+      "chargeur": 0,
+      "munitions": "",
+      "autoReload": false
+    },
+    "objets": {
+      "templates": ["base","matos"]
+    },
+    "pouvoirs": {
+      "templates": ["base"],
+      "spellLevel": 1
+    },
+    "atouts": {
+      "templates": ["base"],
+      "cout": 1
+    },
+    "handicaps": {
+      "templates": ["base"],
+      "cout": 1
+    }
+  },
+  "munitions": {
+    "templates": ["base"]
+  }
+}

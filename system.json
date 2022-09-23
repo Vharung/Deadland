@@ -1,0 +1,37 @@
+{
+  "id": "deadlandsc",
+  "title": "Deadlands Classique",
+  "description": "Système Deadlands Classique pour FoundryVTT!",
+  "version": "0.0.1",
+  "compatibility": {
+      "minimum": "10",
+      "verified": "10.285",
+      "maximum": "10"
+    },
+  "templateVersion": 2,
+  "authors": [
+      {
+        "name": "Dryas",
+        "url": "https://foundryvtt.com"
+      }
+    ],
+  "esmodules": ["module/deadlandsc.js"],
+  "styles": ["css/deadlandsc.css"],
+  "scripts": [],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr.json"
+    }
+  ],
+  "gridDistance": 1,
+  "gridUnits": "m",
+  "primaryTokenAttribute": "souffle",
+  "secondaryTokenAttribute": "allure",
+  "url": "",
+  "manifest": "",
+  "download": "https://gitlab.com/dryas.redrock/deadlandsc",
+  "license": "LICENSE.txt"
+}
