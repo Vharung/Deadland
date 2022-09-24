@@ -2,7 +2,7 @@
   "id": "deadlandsc",
   "title": "Deadlands Classique",
   "description": "Système Deadlands Classique pour FoundryVTT!",
-  "version": "0.0.1",
+  "version": "0.0.9",
   "compatibility": {
       "minimum": "10",
       "verified": "10.285",
