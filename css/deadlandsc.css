@@ -1,8 +1,11 @@
 @import "https://fonts.googleapis.com/css2?family=Martel:wght@400;800&family=Roboto:wght@300;400;500&display=swap";
 @font-face{font-family:"Docktrin";font-style:normal;font-weight:400;src:url(../fonts/docktrin.ttf) format("truetype")}
-.window-app{font-family:"Docktrin",sans-serif}
-.window-app .window-content{background: url(../assets/parchemin.jpg);background-size: cover;}
-.window-app.actor .window-content{background:url(../assets/wood.jpg);background-size: contain;}
+.window-app,.chat-message,.pack-title{font-family:"Docktrin",sans-serif}
+.window-app .window-content,.chat-message,.combat-tracker-header{background: url(../assets/parchemin.jpg);background-size: cover;}
+.combat-tracker-header{color: #000}
+.compendium-footer{color: #fff}
+#sidebar button{background: #782e22;color:#fff;border: none;}
+.window-app.actor .window-content,#sidebar{background:url(../assets/wood.jpg);background-size: contain;}
 .imgcenter{display:block;margin-left:auto;margin-right:auto;width:40%;height:80%}
 .rollable:hover,.rollable:focus{color:#000;text-shadow:0 0 10px red;cursor:pointer}
 .grid,.grid-2col{display:grid;grid-column:span 2 / span 2;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0;padding:0}
