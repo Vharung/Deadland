@@ -53,7 +53,7 @@ input.carac{color:#000;width:30px}
 .caracdice{display:inline-block;width:30%}
 .img-blessure{position:relative;display:block;bottom:0;margin:0;border:none;padding:0;width: 70%;margin-left: 20px;}
 .blessures{background-image:linear-gradient()}
-.jauge{border:0;width:324px;height:152px;display:block;background-color:hidden;color:#fff;position:relative;text-decoration:none;border-spacing:0;border-collapse:collapse}
+.jauge{border:0;width: 331px;margin-left: 40px;height:152px;display:block;background-color:hidden;color:#fff;position:relative;text-decoration:none;border-spacing:0;border-collapse:collapse}
 .jauge-remplissage{border:0;transition:all .3s linear 0;background-color:rgba(255,0,0,0.3);width:265px;position:absolute;left:0;bottom:0;border-spacing:0;border-collapse:collapse;z-index:2}
 .jauge-remplissage-0{height:0;transition:all .3s linear 0}
 .jauge-remplissage-1{height:20%;transition:all .3s linear 0}
@@ -65,9 +65,9 @@ input.carac{color:#000;width:30px}
 .deadlandsc h2.dead{font-size: 4em;border-bottom: none;text-align: center;}
 .deadlandsc h4.nomprime {font-size: 3em;text-align: center;}
 .deadlandsc h4.valeurprime{font-size: 4em;text-align: center;}
-.deadlandsc .bois{background: url(../assets/parchemin.jpg);box-shadow: 7px 5px 5px -2px rgba(0,0,0,0.74);padding: 10px;margin-left: 18px;height: 808px;background-size: cover;}
+.deadlandsc .bois{background: url(../assets/parchemin.jpg);box-shadow: 7px 5px 5px -2px rgba(0,0,0,0.74);padding: 10px;height: 808px;background-size: cover;}
 .deadlandsc.sheet .editor-content {height: 200px;overflow-y: auto;word-break: break-word;background: #99999973;}
-.deadlandsc.sheet nav.sheet-tabs {border-bottom: none;border-top: none;margin: 0;padding-left: 18px;}
+.deadlandsc.sheet nav.sheet-tabs {border-bottom: none;border-top: none;margin: 0;}
 .deadlandsc.sheet nav.sheet-tabs .item{padding: 0 12px;filter: brightness(0.5)}
 .deadlandsc .tabs{display: block;}
 .clear{clear: both;}

@@ -10,7 +10,7 @@ export class DeadlandscActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["deadlandsc", "sheet", "actor"],
       template: "systems/deadlandsc/templates/actor/actor-sheet.html",
-      width: 1200,
+      width: 700,
       height: 900,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
@@ -307,19 +307,9 @@ export class DeadlandscActorSheet extends ActorSheet {
       }else {
         cardco='D';
       }
-      /*   
-      if(serie[1]=='trefle'){
-        cardco='♣';cardnb='black';
-      }else if(serie[1]=='pique'){
-        cardco='♠';cardnb='black';
-      }else if(serie[1]=='coeur'){
-        cardco='♥';cardnb='red';
-      }else {
-        cardco='♦';cardnb='red';
-      }*/
-      //content.push(serie[0]+" "+serie[1]);
       content.push(cardnb+cardco);
       lignes.push(serie[2]);
+      console.log(serie[3])
        
       
       // Détection des Joker

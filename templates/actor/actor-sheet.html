@@ -1,24 +1,11 @@
 <form class="{{cssClass}}" autocomplete="off">
-<div class="col2">
-  <img class="logo" src="systems/deadlandsc/assets/logo.png" style="display:block;border:none;width:50%;margin-left: auto;margin-right: auto;"> 
-  {{!-- Top --}}
-    <div class="avis">
-      <h1 class="wanted">Wanted</h1>
-      <h2 class="dead">Dead or Alive</h2>
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="
-        250" width="250" style="box-sizing: border-box;border: 1px solid var(--color-border-dark);border-radius: 2px;margin-left: calc(50% - 125px);filter: sepia(1);"/>
-        <h4 class="nomprime"><input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'DEADLANDSC.ActorNom'}}" style="height: 50px;border: none;"/></h4>
-        <input name="system.metier" type="text" value="{{data.system.metier}}" placeholder="{{localize 'DEADLANDSC.ActorMetier'}}" style="text-align: center;font-size: 1.2em;margin-top: -40px;margin-bottom: 20px;border: none;"/>
-        <h4 class="valeurprime">$ <input name="system.crédit" type="text" value="{{data.system.crédit}}" style="border: none;width: 50%;height: 49px;padding: 0;top: -11px;position: relative;
-font-size: 0.7em;"/> reward</h4>
-    </div>
-</div>
-
-<div class="col2"> 
+  
+ 
   <!--h1 style="font-size: 5em;border-bottom: none;text-align: center;height: 70px;color: #191813;">rip</h1-->
   {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">{{localize "DEADLANDSC.ActorTabDescription"}}</a>
+        <a class="item" data-tab="description">★</a>
+        <a class="item" data-tab="home">{{localize "DEADLANDSC.ActorTabDescription"}}</a>
         <a class="item" data-tab="carac">{{localize "DEADLANDSC.ActorTabCarac"}}</a>
         <a class="item" data-tab="items">{{localize "DEADLANDSC.ActorTabItems"}}</a>
         <a class="item" data-tab="features">{{localize "DEADLANDSC.ActorTabFeatures"}}</a>
@@ -28,8 +15,21 @@ font-size: 0.7em;"/> reward</h4>
     <div class="clear"></div>
     {{!-- Sheet Body --}}
     <section class="sheet-body bois">
+      <div class="tab home" data-group="primary" data-tab="description">
+        <img class="logo" src="systems/deadlandsc/assets/logo.png" style="display:block;border:none;width:30%;margin-left: auto;margin-right: auto;"> 
+            <h1 class="wanted">Wanted</h1>
+            <h2 class="dead">Dead or Alive</h2>
+              <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="
+              250" width="250" style="box-sizing: border-box;border: 1px solid var(--color-border-dark);border-radius: 2px;margin-left: calc(50% - 125px);filter: sepia(1);"/>
+              <h4 class="nomprime"><input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'DEADLANDSC.ActorNom'}}" style="height: 50px;border: none;"/></h4>
+              <input name="system.metier" type="text" value="{{data.system.metier}}" placeholder="{{localize 'DEADLANDSC.ActorMetier'}}" style="text-align: center;font-size: 1.2em;margin-top: -40px;margin-bottom: 20px;border: none;"/>
+              <h4 class="valeurprime">$ <input name="system.crédit" type="text" value="{{data.system.crédit}}" style="border: none;width: 50%;height: 49px;padding: 0;top: -11px;position: relative;
+      font-size: 0.7em;"/> reward</h4>
+      </div>
+
         {{!-- Biography Tab --}}
-        <div class="tab biography" data-group="primary" data-tab="description">
+        <div class="tab biography" data-group="primary" data-tab="home">
+
           <header class="sheet-header">       
             <div class="flexcol header-fields">        
                 <h2>Allure : {{data.system.allure}}</h2>
@@ -244,5 +244,4 @@ font-size: 0.7em;"/> reward</h4>
 
     </section>
     <div class="clear"></div>
-</div>
 </form>
