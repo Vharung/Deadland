@@ -50,7 +50,7 @@
             <div class="col2">
               <div class="flexcol flex-group-center">
                 <h1 class="titre">{{localize "DEADLANDSC.ActorMental"}}</h1>              
-                {{#each system.mental as |carac key|}}
+                {{#each data.system.mental as |carac key|}}
                 <div class="caracheader">
                   <div class="caraclabel">{{localize key}}</div>
                   <div class="caracdice">
@@ -78,7 +78,7 @@
 
               <div class="flexcol flex-group-center">
                 <h1 class="titre">{{localize "DEADLANDSC.ActorPhysique"}}</h1>              
-                {{#each system.physique as |carac key|}}
+                {{#each data.system.physique as |carac key|}}
                 <div class="caracheader">
                   <div class="caraclabel">{{localize key}}</div>
                   <div class="caracdice">
