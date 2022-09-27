@@ -300,34 +300,18 @@ export class DeadlandscActorSheet extends ActorSheet {
     const dataset = element.dataset;
 
     /*if(name=="Tir"){
+      if(chargeur.length === 0){
+          succes="<h4 class='resultat' style='background:#ff3333;'>Pas de chargeur !</h4>";
+          ChatMessage.create({
+              speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+              flavor: succes
+            });
+          return;
+      }
         var arme = event.target.dataset["armed"];
         var degat = event.target.dataset["degat"];
         name+=" avec "+arme;       
-        if(retour>95){
-            succes="<h4 class='resultat' style='background:#ff3333;'>Arme Inutilisable</h4>";
-            deg='<h4 class="resultdeg3"></h4>';
-        }else if(retour>(inforesult+20)){
-            succes="<h4 class='resultat' style='background:#ff5733;'>L'arme est enrayé pour 1 tour</h4>";
-            deg='<h4 class="resultdeg2"></h4>';
-        }else if(retour>inforesult){
-            succes="<h4 class='resultat' style='background:#ff5733;'>Raté</h4>";
-            deg='<h4 class="resultdeg4"></h4>';
-            perte=1;
-        }else if(retour>(inforesult-20)){
-            succes="<h4 class='resultat' style='background:#78be50;'>La cible est touché</h4>";
-            deg='<h4 class="resultdeg">'+degat+'</h4>';
-            perte=1;                
-        }else if(retour>critique){
-            succes="<h4 class='resultat' style='background:#78be50;'>Dégât x1.5</h4>";
-            degat=parseInt(degat)*1.5;
-            deg='<h4 class="resultdeg">'+degat+'</h4>';
-            perte=1;
-        }else if(retour<=critique){
-            succes="<h4 class='resultat' style='background:#78be50;'>Dégât x2</h4>";
-            degat=parseInt(degat)*2;
-            deg='<h4 class="resultdeg">'+degat+'</h4>';
-            perte=1;                
-        }       
+              
     }*/
     if (dataset.roll) {
       let roll = new Roll(dataset.roll, this.actor.system.data);
