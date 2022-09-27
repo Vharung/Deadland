@@ -58,7 +58,7 @@
                     D
                     <input type="text" class="carac" maxlength="2" size="2" name="system.mental.{{key}}.de" value="{{carac.de}}" data-dtype="Number"/>
                   </div>
-                  {{#each (lookup ../system.skills key)}}
+                  {{#each (lookup ../skills key)}}
                   <div class="caraclabel">
                     <input type="text" class="" name="system.skills.{{key}}.{{@index}}.skill" value="{{this.skill}}" data-dtype="String"/>
                   </div>
@@ -86,14 +86,14 @@
                     D
                     <input type="text" class="carac" maxlength="2" size="2" name="system.physique.{{key}}.de" value="{{carac.de}}" data-dtype="Number"/>
                   </div>
-                  {{#each (lookup ../system.skills key)}}
+                  {{#each (lookup ../skills key)}}
                   <div class="caraclabel">
                     <input type="text" class="" name="system.skills.{{key}}.{{@index}}.skill" value="{{this.skill}}" data-dtype="String"/>
                   </div>
                   <div class="caracdice">
                     <input type="text" class="carac" maxlength="1" size="1" name="system.skills.{{key}}.{{@index}}.valeur" value="{{this.valeur}}" data-dtype="Number"/>
                     {{#ifCond this.valeur 0 }}
-                    <span class="ability-mod rollable" data-roll="round({ {{#timesdice ../this.coordination}}1d{{../this.de}}x{{/timesdice}} }kh/2)" data-label="{{this.skill}}"><i class="fas fa-dice-d20"></i></span>
+                    <span class="ability-mod rollable" data-roll="round({ {{#timesdice ../this.coordination}}1d{{../this.de}}x{{/timesdice}} }kh/2)" data-label="{{this.skill}}">D<i class="fas fa-dice-d20"></i></span>
                     {{else}}
                     <span class="ability-mod rollable" data-roll="{ {{#timesdice this.valeur}}1d{{../this.de}}x{{/timesdice}} }kh" data-label="{{this.skill}}"><i class="fas fa-dice-d20"></i></span>
                     {{/ifCond}}
