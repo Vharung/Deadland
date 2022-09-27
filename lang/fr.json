@@ -45,6 +45,11 @@
 "DEADLANDSC.Quantité": "Quantité",
 "DEADLANDSC.Formin": "Force Minimale",
 "DEADLANDSC.Cout": "Coût",
+"DEADLANDSC.Sante": "Santé",
+"DEADLANDSC.Armes": "Armes",
+"DEADLANDSC.droite": "Main droite",
+"DEADLANDSC.gauche": "Main gauche",
+"DEADLANDSC.charger": "Munitions",
 
 "AP": "As de pique",
 "AC": "As de coeur",

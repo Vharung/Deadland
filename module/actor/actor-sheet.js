@@ -51,6 +51,8 @@ export class DeadlandscActorSheet extends ActorSheet {
     const pouvoirs = [];
     const atouts = [];
     const handicaps = [];
+    const munitions = [];
+
 
     // Iterate through items, allocating to containers
     // let totalWeight = 0;
@@ -77,6 +79,10 @@ export class DeadlandscActorSheet extends ActorSheet {
       else if (i.type === 'handicaps') {
         handicaps.push(i);
       }
+
+      else if (i.type === 'munitions') {
+        munitions.push(i);
+      }
     }
 
     // Assign and return
@@ -85,6 +91,7 @@ export class DeadlandscActorSheet extends ActorSheet {
     actorData.pouvoirs = pouvoirs;
     actorData.atouts = atouts;
     actorData.handicaps = handicaps;
+    actorData.munitions = munitions;
   }
 
   /* -------------------------------------------- */
@@ -215,6 +222,43 @@ export class DeadlandscActorSheet extends ActorSheet {
     html.find('.melange').on('click', () => {
       this.Melange();
     });
+
+    html.find('.maingauche').click(this._onArmor.bind(this));
+    html.find('.maindroite').click(this._onArmor.bind(this));
+    html.find('.desequi').click(this._onDesArmor.bind(this));
+
+    html.find( ".refbar" ).each(function( index ) {
+          var pc=$( this ).val();
+          var name=$( this ).attr('data-zone');
+          var z=0;var t='';
+          if(name=="tete"){
+            z=1;t='t';
+          } else if(name=="torse"){
+            z=2;t='to';
+          } else if(name=="bd"){
+            z=3;t='tbd';
+          } else if(name=="bg"){
+            z=4;t='tbg';
+          } else if(name=="jd"){
+            z=5;t='tjd';
+          } else if(name=="jg"){
+            z=6;t='tjg';
+          }
+          pc=(10-parseInt(pc))*10;
+          if(pc>'60'){
+            $('.zone.'+name+' .bar').css({'background':'#00abab','width':pc+'%'});
+            $('.z'+z).css({'background':' url(systems/libersf/assets/icon/'+t+'1.png) center center no-repeat'});
+          }else if(pc>'30'){
+            $('.zone.'+name+' .bar').css({'background':'#c9984b','width':pc+'%'});
+            $('.z'+z).css({'background':' url(systems/libersf/assets/icon/'+t+'2.png) center center no-repeat'});
+          }else if(pc<=0){
+            $('.zone.'+name+' .bar').css({'background':'#460000','width':pc+'%'});
+            $('.z'+z).css({'background':' url(systems/libersf/assets/icon/'+t+'0.png) center center no-repeat'});
+          }else{
+            $('.zone.'+name+' .bar').css({'background':'#a10001','width':pc+'%'});
+            $('.z'+z).css({'background':' url(systems/libersf/assets/icon/'+t+'3.png) center center no-repeat'});
+          }
+        });
   
   }
 
@@ -255,6 +299,36 @@ export class DeadlandscActorSheet extends ActorSheet {
     const element = event.currentTarget;
     const dataset = element.dataset;
 
+    /*if(name=="Tir"){
+        var arme = event.target.dataset["armed"];
+        var degat = event.target.dataset["degat"];
+        name+=" avec "+arme;       
+        if(retour>95){
+            succes="<h4 class='resultat' style='background:#ff3333;'>Arme Inutilisable</h4>";
+            deg='<h4 class="resultdeg3"></h4>';
+        }else if(retour>(inforesult+20)){
+            succes="<h4 class='resultat' style='background:#ff5733;'>L'arme est enrayé pour 1 tour</h4>";
+            deg='<h4 class="resultdeg2"></h4>';
+        }else if(retour>inforesult){
+            succes="<h4 class='resultat' style='background:#ff5733;'>Raté</h4>";
+            deg='<h4 class="resultdeg4"></h4>';
+            perte=1;
+        }else if(retour>(inforesult-20)){
+            succes="<h4 class='resultat' style='background:#78be50;'>La cible est touché</h4>";
+            deg='<h4 class="resultdeg">'+degat+'</h4>';
+            perte=1;                
+        }else if(retour>critique){
+            succes="<h4 class='resultat' style='background:#78be50;'>Dégât x1.5</h4>";
+            degat=parseInt(degat)*1.5;
+            deg='<h4 class="resultdeg">'+degat+'</h4>';
+            perte=1;
+        }else if(retour<=critique){
+            succes="<h4 class='resultat' style='background:#78be50;'>Dégât x2</h4>";
+            degat=parseInt(degat)*2;
+            deg='<h4 class="resultdeg">'+degat+'</h4>';
+            perte=1;                
+        }       
+    }*/
     if (dataset.roll) {
       let roll = new Roll(dataset.roll, this.actor.system.data);
       let label = dataset.label ? `Rolling ${dataset.label}` : '';
@@ -436,5 +510,38 @@ export class DeadlandscActorSheet extends ActorSheet {
       });
     }
   }
+
+  _onArmor(event){
+        var genre=event.target.dataset["genre"];
+        var objetaequipe=event.target.dataset["name"]; 
+        var main=event.target.dataset["equip"]; 
+        if(genre=="arme" ){
+          if(main=="gauche"){
+            this.actor.update({'system.armeg':objetaequipe});
+          }else {
+            this.actor.update({'system.armed':objetaequipe});
+          }
+        }else if(genre=="chargeur"){
+          if(main=="gauche"){
+            this.actor.update({'system.chargeg':objetaequipe});
+          }else {
+            this.actor.update({'system.charged':objetaequipe});
+          }
+        }
+    }
+
+    _onDesArmor(event){
+        var genre=event.target.dataset["genre"];
+
+        if(genre=="armed" ){
+            this.actor.update({'system.armed':''});
+        }else  if(genre=="armeg" ){
+            this.actor.update({'system.armeg':''});
+        }else if(genre=='chargeurd'){
+            this.actor.update({'system.charged':''});
+        }else if(genre=='chargeurg'){
+            this.actor.update({'system.chargeg':''});
+        } 
+    }
 
 }

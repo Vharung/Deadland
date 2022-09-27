@@ -4,6 +4,10 @@
     "templates": {
       "base": {
         "metier":"",
+        "armed":"",
+        "armeg":"",
+        "charged":"",
+        "chargeg":"",
         "mental": {
           "perception": {
             "coordination": 1,

@@ -73,3 +73,28 @@ input.carac{color:#000;width:30px}
 .clear{clear: both;}
 .deadlandsc textarea{width: 100%;height: 268px;color:#20180d;border:none;resize: none;}
 .deadlandsc .titre{text-align: left;width: 100%;}
+
+.deadlandsc .z1,.deadlandsc .z2,.deadlandsc .z3,.deadlandsc .z4,.deadlandsc .z5,.deadlandsc .z6{position: relative;display: block;width: 100px;position: absolute;}
+.deadlandsc .z1{height: 49px; background: url("../assets/icon/t1.png") no-repeat center center;left: calc(50% - 50px);}
+.deadlandsc .z2{background: url("../assets/icon/to1.png") no-repeat center center;height: 146px;left: calc(50% - 51px);top: 48px;}
+.deadlandsc .z3{background: url("../assets/icon/tbd1.png") no-repeat center center;left: calc(50% - 71px);top: 61px;height: 130px;width: 30px;}
+.deadlandsc .z4{background: url("../assets/icon/tbg1.png") no-repeat center center;left: calc(50% + 41px);top: 62px;height: 130px;width: 30px;}
+.deadlandsc .z5{left: calc(50% - 55px);top: 194px;height: 158px;width: 54px;background: url(../assets/icon/tjd1.png) no-repeat center center;}
+.deadlandsc .z6{left: calc(50%);top: 194px;height: 158px;width: 54px;background: url("../assets/icon/tjg1.png") no-repeat center center;}
+.deadlandsc .vaisseau{height: 400px; background: url("../assets/icon/vaisseau.png") no-repeat center center;background-size: contain}
+.deadlandsc .zone{width: 120px;position: relative; text-align: center}
+.deadlandsc .zone input{font-weight: bold;}
+.deadlandsc .tete{left: calc(50% + 20px);top:20px;}
+.deadlandsc .bd{left: calc(50% - 180px);top:100px;}
+.deadlandsc .torse{left: calc(50% - 60px);top:120px;}
+.deadlandsc .blinder{left: calc(50% - 60px);top:150px;}
+.deadlandsc .bg{left: calc(50% + 60px);top:38px;}
+.deadlandsc .jd{left: calc(50% - 160px);top:150px;}
+.deadlandsc .jg{left: calc(50% + 40px);top:119px;}
+.deadlandsc .icongun{display: inline-block;background: url(" ../assets/icon/pistol-gun.png");background-size: cover;width: 50px;height: 50px;}
+.deadlandsc .iconcha{display: inline-block;background: url(" ../assets/icon/machine-gun-magazine.png");background-size: cover;width: 50px;height: 50px}
+.deadlandsc .maindroite,.deadlandsc .maingauche,.deadlandsc .armor{width: 20px; height: 20px; display: inline-block;cursor: pointer;}
+.deadlandsc .maindroite {background: url(" ../assets/icon/hand.png");background-size: cover;}
+.deadlandsc .maingauche {background: url(" ../assets/icon/hand2.png");background-size: cover;}
+button.desequi{float: right;background: #782e22;border: none;color: #fff;width: 50px;height: 50px;font-size: 2em;cursor: pointer}
+.deadlandsc .armed,.deadlandsc .armeg,.deadlandsc .charged,.deadlandsc .chargeg{width: 185px;height: 50px;position: relative;top: -24px;left: 10px}
