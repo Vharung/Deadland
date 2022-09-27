@@ -106,22 +106,22 @@
             <div class="col2">
               <h1 class="titre">{{localize "DEADLANDSC.Atouts"}}</h1>
               {{#each actor.atouts as |item id|}}
-              <div class="flexcol">
+              <div class="flexcol desc">
                 <div class="flexrow">
-                  <h2>{{item.name}}</h2>
+                  <h2 style="display:contents;">{{item.name}}</h2>
                   <h2 style="text-align: right">{{item.system.cout}}</h2>
                 </div>
-                <div>{{item.system.description}}</div>
+                <div style="text-align: left">{{item.system.description}}</div>
               </div>
               {{/each}}
               <h1 class="titre">{{localize "DEADLANDSC.Handicaps"}}</h1>
               {{#each actor.handicaps as |item id|}}
-              <div class="flexcol">
+              <div class="flexcol desc">
                 <div class="flexrow">
-                  <h2>{{item.name}}</h2>
+                  <h2 style="display:contents;">{{item.name}}</h2>
                   <h2 style="text-align: right">{{item.system.cout}}</h2>
                 </div>
-                <div>{{item.system.description}}</div>
+                <div style="text-align: left">{{item.system.description}}</div>
               </div>
               {{/each}}
             </div>

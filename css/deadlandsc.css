@@ -98,3 +98,5 @@ input.carac{color:#000;width:30px}
 .deadlandsc .maingauche {background: url(" ../assets/icon/hand2.png");background-size: cover;}
 button.desequi{float: right;background: #782e22;border: none;color: #fff;width: 50px;height: 50px;font-size: 2em;cursor: pointer}
 .deadlandsc .armed,.deadlandsc .armeg,.deadlandsc .charged,.deadlandsc .chargeg{width: 185px;height: 50px;position: relative;top: -24px;left: 10px}
+.deadlandsc .desc{height: 40px;overflow: hidden;}
+.deadlandsc .desc:hover{height: auto;}
