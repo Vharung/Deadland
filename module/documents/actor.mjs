@@ -8,46 +8,60 @@ export class DeadlandscActor extends Actor {
    * Augment the basic actor data with additional dynamic data.
    */
   prepareData() {
-    super.prepareData();
-
-    const actorData = this.system;
-    const data = actorData;
-    const flags = actorData.flags;
-
-    Handlebars.registerHelper('timesdice', function(n, block) {
-      var accum = '';
-      for(var i = 0; i < n; ++i)
-      {
-          accum += block.fn(this);
-          if(i < (n-1))
-          accum += ", ";
-      }
-      return accum;
-    });
-
-
-
-
-    Handlebars.registerHelper('ifCond', function(v1, v2, options) {
-      if(v1 === v2) {
-        return options.fn(this);
-      }
-      return options.inverse(this);
-    });
-
-    // Make separate methods for each Actor type (character, npc, etc.) to keep
-    // things organized.
-    if (actorData.type === 'PJ') this._preparePJData(actorData);
-    if (actorData.type === 'PNJ') this._preparePNJData(actorData);
+    super.prepareData();    
   }
+
+    /** @override */
+    prepareBaseData() {
+      // Data modifications in this step occur before processing embedded
+      // documents or derived data.
+    }
+  
+    /**
+     * @override
+     * Augment the basic actor data with additional dynamic data. Typically,
+     * you'll want to handle most of your calculated/derived data in this step.
+     * Data calculated in this step should generally not exist in template.json
+     * (such as ability modifiers rather than ability scores) and should be
+     * available both inside and outside of character sheets (such as if an actor
+     * is queried and has a roll executed directly from it).
+     */
+    prepareDerivedData() {
+      const actorData = this;
+      //const data = this.system;
+      //const flags = this.flags.DeadlandscActor || {};
+      Handlebars.registerHelper('timesdice', function(n, block) {
+        var accum = '';
+        for(var i = 0; i < n; ++i)
+        {
+            accum += block.fn(this);
+            if(i < (n-1))
+            accum += ", ";
+        }
+        return accum;
+      });
+  
+      Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+        if(v1 === v2) {
+          return options.fn(this);
+        }
+        return options.inverse(this);
+      });
+  
+      // Make separate methods for each Actor type (character, npc, etc.) to keep
+      // things organized.
+      console.log(actorData);
+      if (actorData.type === 'PJ') this._preparePJData(actorData.system);
+      if (actorData.type === 'PNJ') this._preparePNJData(actorData.system);
+    }
+  
 
   /**
    * Prepare Character type specific data
    */
   _preparePJData(actorData) {
-    const data = actorData.system;
     console.log(`Deadlands Classique | Préparation Data PJ.\n`);
-    console.log(data);
+    console.log(actorData);
     // Calcul Allure
     actorData.allure=actorData.physique.agilite.de;
     // Calcul souffle Max
@@ -61,7 +75,7 @@ export class DeadlandscActor extends Actor {
   }
 
   _preparePNJData(actorData) {
-    const data = actorData;
+    const data = actorData.system;
 
     // Make modifications to data here. For example:
 
@@ -72,20 +86,61 @@ export class DeadlandscActor extends Actor {
     }
   }
 
+  /**
+   * Override getRollData() that's supplied to rolls.
+  
+   getRollData() {
+    const data = super.getRollData();
+
+    // Copy the ability scores to the top level, so that rolls can use
+    // formulas like `@str.mod + 4`.
+    for (let [k, v] of Object.entries(data.abilities)) {
+      data[k] = foundry.utils.deepClone(v);
+    }
+
+    // Add level for easier access, or fall back to 0.
+    data.lvl = data.attributes.level.value ?? 0;
+
+    return data;
+  }
+ */
   async Initiative() {
     let lignes=[];
     let content=[];
-    let actorData = this.system;
     let serie = [];
     let nb = 2;
+    var cardnb='';
+    var cardco='';
     let messageJoker="";
 
     //Tirage de nb cartes
     while (nb)
     {
       serie = this.Tirer();
-      content.push(serie[0]+" "+serie[1]);
+      
+      if(serie[0]=='V'){
+        cardnb='V';
+      }else if(serie[0]=='Q'){
+        cardnb='D';
+      }else if(serie[0]=='K'){
+        cardnb='R';
+      }else {
+        cardnb=serie[0];
+      }
+      if(serie[1]=='trefle'){
+        cardco='T';
+      }else if(serie[1]=='pique'){
+        cardco='P';
+      }else if(serie[1]=='coeur'){
+        cardco='C';
+      }else {
+        cardco='D';
+      }
+      content.push(cardnb+cardco);
+      //content.push(serie[0]+" "+serie[1]);
       lignes.push(serie[2]);
+      console.log(serie[3]);
+      
       // Détection des Joker
       if (serie[0]=="J") {
         if (serie[1]=="coeur") {
@@ -137,8 +192,8 @@ export class DeadlandscActor extends Actor {
     }
     //mise à jour des decks
     this.update({
-      'data.deck': actorData.deck,
-      'data.defausse': actorData.defausse,
+      'system.deck': actorData.deck,
+      'system.defausse': actorData.defausse,
     });
     return carte;
   }
@@ -157,8 +212,8 @@ export class DeadlandscActor extends Actor {
     }
     //mise à jour des decks
     this.update({
-      'data.deck': actorData.deck,
-      'data.defausse': [],
+      'system.deck': actorData.deck,
+      'system.defausse': [],
     });
   }
 
@@ -172,9 +227,10 @@ export class DeadlandscActor extends Actor {
       };
           ChatMessage.create(chatData);
       let actorData = this.system;
+      console.log(actorData);
       if (actorData.souffle > 0) {
           await this.update({
-              'data.souffle': actorData.souffle - 1,
+              'system.souffle': actorData.souffle - 1,
           });
       }
   }
@@ -190,7 +246,7 @@ export class DeadlandscActor extends Actor {
         ChatMessage.create(chatData);
     let actorData = this.system;
     await this.update({
-        'data.souffle': actorData.souffle + 1,
+        'system.souffle': actorData.souffle + 1,
     });
   } 
 
@@ -198,7 +254,7 @@ export class DeadlandscActor extends Actor {
     let actorData = this.system;
     if (actorData[loc] < 5) {
       await this.update({      
-        ['data.' + loc]: actorData[loc] + 1,
+        ['system.' + loc]: actorData[loc] + 1,
       });
     }
   }
@@ -207,9 +263,42 @@ export class DeadlandscActor extends Actor {
     let actorData = this.system;
     if (actorData[loc] > 0) {
       await this.update({
-        ['data.' + loc]: actorData[loc] - 1,
+        ['system.' + loc]: actorData[loc] - 1,
       });
     }
   }
 
+  _onArmor(event){
+        var genre=event.target.dataset["genre"];
+        var objetaequipe=event.target.dataset["name"]; 
+        var main=event.target.dataset["equip"]; 
+        if(genre=="arme" ){
+          if(main=="gauche"){
+            this.update({'system.armeg':objetaequipe});
+          }else {
+            this.update({'system.armed':objetaequipe});
+          }
+        }else if(genre=="chargeur"){
+          if(main=="gauche"){
+            this.update({'system.chargeg':objetaequipe});
+          }else {
+            this.update({'system.charged':objetaequipe});
+          }
+        }
+    }
+
+    _onDesArmor(event){
+        var genre=event.target.dataset["genre"];
+
+        if(genre=="armed" ){
+            this.update({'system.armed':''});
+        }else  if(genre=="armeg" ){
+            this.update({'system.armeg':''});
+        }else if(genre=='chargeurd'){
+            this.update({'system.charged':''});
+        }else if(genre=='chargeurg'){
+            this.update({'system.chargeg':''});
+        } 
+    }
+    
 }

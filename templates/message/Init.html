@@ -4,9 +4,9 @@
     {{#each content as |card|}}
         <img src="systems/deadlandsc/assets/carte/{{card}}.png" style="width: 25%;float: left;">
     {{/each}}
-    <!--{{#each lignes as |ligne|}}
-        <img src="systems/deadlandsc/assets/carte/{{ligne}}.png" style="width: 25%;float: left;">
-    {{/each}}-->
+    {{#each lignes as |ligne|}}
+    <div>{{localize ligne}}</div>
+    {{/each}}
     <pre>{{messageJoker}}</pre>
     
   </div>

@@ -2,20 +2,19 @@
   "id": "deadlandsc",
   "title": "Deadlands Classique",
   "description": "Système Deadlands Classique pour FoundryVTT!",
-  "version": "0.0.9",
-  "compatibility": {
-      "minimum": "10",
-      "verified": "10.285",
-      "maximum": "10"
-    },
-  "templateVersion": 2,
-  "authors": [
+  "version": "0.0.10",
+	"compatibility": {
+	  "minimum": "10.0",
+	  "verified": "10.286",
+	  "maximum": "10.291"
+	},
+    "authors": [
       {
         "name": "Dryas",
-        "url": "https://foundryvtt.com"
+        "url": "https://www.virtuajdr.net"
       }
     ],
-  "esmodules": ["module/deadlandsc.js"],
+  "esmodules": ["module/deadlandsc.mjs"],
   "styles": ["css/deadlandsc.css"],
   "scripts": [],
   "packs": [],

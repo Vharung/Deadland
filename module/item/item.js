@@ -34,11 +34,4 @@ export class DeadlandscItem extends Item {
       flavor: label
     });
   }
-
-  MunMoins(){
-    let itemData = this.system;
-    let qty=itemData.quantite;
-    qty--;
-    this.update({'system.quantite':qty});
-  }
 }

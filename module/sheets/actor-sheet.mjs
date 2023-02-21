@@ -1,3 +1,4 @@
+import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -6,12 +7,11 @@ export class DeadlandscActorSheet extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
-
     return mergeObject(super.defaultOptions, {
       classes: ["deadlandsc", "sheet", "actor"],
       template: "systems/deadlandsc/templates/actor/actor-sheet.html",
-      width: 1280,
-      height: 800,
+      width: 1250,
+      height: 750,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
   }
@@ -20,19 +20,28 @@ export class DeadlandscActorSheet extends ActorSheet {
 
   /** @override */
   getData() {
-    const data = super.getData();
-    console.log(data); 
-    data.dtypes = ["String", "Number", "Boolean"];
-    //for (let attr of Object.values(data.data.attributes)) {
-    //  attr.isCheckbox = attr.dtype === "Boolean";
-    //}
+    const context = super.getData();
 
+    // Use a safe clone of the actor data for further operations.
+    const actorData = context.actor.system;
+
+    // Add the actor's data to context.data for easier access, as well as flags.
+    context.data = actorData.data;
+    context.flags = actorData.flags;
+    console.log(context);
     // Prepare items.
-    if (this.actor.type == 'PJ') {
-      this._prepareCharacterItems(data);
+    if (actorData.type == 'PJ') {
+      this._prepareCharacterItems(context);
     }
 
-    return data;
+        // Add roll data for TinyMCE editors.
+        context.rollData = context.actor.getRollData();
+
+        
+    // Prepare active effects
+    context.effects = prepareActiveEffectCategories(this.actor.effects);
+
+    return context;
   }
 
   /**
@@ -42,8 +51,8 @@ export class DeadlandscActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareCharacterItems(sheetData) {
-    const actorData = sheetData.actor;
+  _prepareCharacterItems(context) {
+    const actorData = context.actor;
 
     // Initialize containers.
     const armes = [];
@@ -51,11 +60,12 @@ export class DeadlandscActorSheet extends ActorSheet {
     const pouvoirs = [];
     const atouts = [];
     const handicaps = [];
+    const munitions = [];
 
     // Iterate through items, allocating to containers
     // let totalWeight = 0;
-    for (let i of sheetData.items) {
-      let item = i.items;
+    for (let i of context.items) {
+	  let item = i.items;
       i.img = i.img || DEFAULT_TOKEN;
       // Append to gear.
       if (i.type === 'armes') {
@@ -77,14 +87,19 @@ export class DeadlandscActorSheet extends ActorSheet {
       else if (i.type === 'handicaps') {
         handicaps.push(i);
       }
+      // Append to munitions.
+      else if (i.type === 'munitions') {
+        munitions.push(i);
+      }
     }
 
     // Assign and return
-    actorData.armes = armes;
-    actorData.features = features;
-    actorData.pouvoirs = pouvoirs;
-    actorData.atouts = atouts;
-    actorData.handicaps = handicaps;
+    context.armes = armes;
+    context.features = features;
+    context.pouvoirs = pouvoirs;
+    context.atouts = atouts;
+    context.handicaps = handicaps;
+    context.munitions = munitions;
   }
 
   /* -------------------------------------------- */
@@ -93,31 +108,46 @@ export class DeadlandscActorSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Everything below here is only needed if the sheet is editable
+	// Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
     // Add Inventory Item
-    html.find('.item-create').click(this._onItemCreate.bind(this));
-
+    html.find('.item-create').click(ev => {
+        event.preventDefault();
+        const dataType=$(ev.currentTarget).data('type');
+        const name = `New ${dataType.capitalize()}`;
+        this.actor.createEmbeddedDocuments('Item', [{ name: name, type: dataType }], { renderSheet: true })
+    });
+    
     // Update Inventory Item
     html.find('.item-edit').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
+      const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
     });
 
     // Delete Inventory Item
     html.find('.item-delete').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
-      this.actor.deleteOwnedItem(li.data("itemId"));
-      li.slideUp(200, () => this.render(false));
+      const item = this.actor.items.get(li.data("itemId"));
+      let d = Dialog.confirm({
+            title: game.i18n.localize("liber.suppr"),
+            content: "<p>"+game.i18n.localize("liber.confirsuppr")+ item.name + "'.</p>",
+            yes: () => item.delete(),
+            no: () => { },
+            defaultYes: false
+        });
+        li.slideUp(200, () => this.render(false));
     });
+
+    // Active Effect management
+    html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
 
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
 
     // Drag events for macros.
-    if (this.actor.owner) {
+    if (this.actor.isOwner) {
       let handler = ev => this._onDragStart(ev);
       html.find('li.item').each((i, li) => {
         if (li.classList.contains("inventory-header")) return;
@@ -207,7 +237,44 @@ export class DeadlandscActorSheet extends ActorSheet {
     html.find('.melange').on('click', () => {
       this.actor.Melange();
     });
-  
+  	
+  	html.find('.maingauche').click(this.actor._onArmor.bind(this));
+    html.find('.maindroite').click(this.actor._onArmor.bind(this));
+    html.find('.desequi').click(this.actor._onDesArmor.bind(this));
+
+    html.find( ".refbar" ).each(function( index ) {
+          var pc=$( this ).val();
+          var name=$( this ).attr('data-zone');
+          var z=0;var t='';
+          if(name=="tete"){
+            z=1;t='t';
+          } else if(name=="torse"){
+            z=2;t='to';
+          } else if(name=="bd"){
+            z=3;t='tbd';
+          } else if(name=="bg"){
+            z=4;t='tbg';
+          } else if(name=="jd"){
+            z=5;t='tjd';
+          } else if(name=="jg"){
+            z=6;t='tjg';
+          }
+          pc=(5-parseInt(pc))*20;
+          if(pc>'60'){
+            $('.zone.'+name+' .bar').css({'background':'#00abab','width':pc+'%'});
+            $('.z'+z).css({'background':' url(systems/deadlandsc/assets/icon/'+t+'1.png) center center no-repeat'});
+          }else if(pc>'30'){
+            $('.zone.'+name+' .bar').css({'background':'#c9984b','width':pc+'%'});
+            $('.z'+z).css({'background':' url(systems/deadlandsc/assets/icon/'+t+'2.png) center center no-repeat'});
+          }else if(pc<=0){
+            $('.zone.'+name+' .bar').css({'background':'#460000','width':pc+'%'});
+            $('.z'+z).css({'background':' url(systems/deadlandsc/assets/icon/'+t+'0.png) center center no-repeat'});
+          }else{
+            $('.zone.'+name+' .bar').css({'background':'#a10001','width':pc+'%'});
+            $('.z'+z).css({'background':' url(systems/deadlandsc/assets/icon/'+t+'3.png) center center no-repeat'});
+          }
+        });
+        
   }
 
   /**
@@ -215,7 +282,7 @@ export class DeadlandscActorSheet extends ActorSheet {
    * @param {Event} event   The originating click event
    * @private
    */
-  _onItemCreate(event) {
+   async _onItemCreate(event) {
     event.preventDefault();
     const header = event.currentTarget;
     // Get the type of item to create.
@@ -234,7 +301,7 @@ export class DeadlandscActorSheet extends ActorSheet {
     delete itemData.data["type"];
 
     // Finally, create the item!
-    return this.actor.createOwnedItem(itemData);
+    return await Item.create(itemData, {parent: this.actor});
   }
 
   /**
@@ -247,13 +314,25 @@ export class DeadlandscActorSheet extends ActorSheet {
     const element = event.currentTarget;
     const dataset = element.dataset;
 
+    // Handle item rolls.
+    if (dataset.rollType) {
+      if (dataset.rollType == 'item') {
+        const itemId = element.closest('.item').dataset.itemId;
+        const item = this.actor.items.get(itemId);
+        if (item) return item.roll();
+      }
+    }
+
+    // Handle rolls that supply the formula directly.
     if (dataset.roll) {
-      let roll = new Roll(dataset.roll, this.actor.system.data);
       let label = dataset.label ? `Rolling ${dataset.label}` : '';
-      roll.roll().toMessage({
+      let roll = new Roll(dataset.roll, this.actor.getRollData());
+      roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label
+        flavor: label,
+        rollMode: game.settings.get('core', 'rollMode'),
       });
+      return roll;
     }
   }
 

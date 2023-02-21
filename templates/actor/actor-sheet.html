@@ -1,172 +1,150 @@
 <form class="{{cssClass}}" autocomplete="off">
-  
- 
-  <!--h1 style="font-size: 5em;border-bottom: none;text-align: center;height: 70px;color: #191813;">rip</h1-->
-  {{!-- Sheet Tab Navigation --}}
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">★</a>
-        <a class="item" data-tab="home">{{localize "DEADLANDSC.ActorTabDescription"}}</a>
-        <a class="item" data-tab="carac">{{localize "DEADLANDSC.ActorTabCarac"}}</a>
-        <a class="item" data-tab="items">{{localize "DEADLANDSC.Armes"}}</a>
-        <a class="item" data-tab="spells">{{localize "DEADLANDSC.ActorTabFeatures"}}</a>
-        <a class="item" data-tab="sante">{{localize "DEADLANDSC.Sante"}}</a>
-        <a class="item" data-tab="lab">{{localize "DEADLANDSC.ActorTabLab"}}</a>
-    </nav>
-    <div class="clear"></div>
-    {{!-- Sheet Body --}}
-    <section class="sheet-body bois">
-      <div class="tab home" data-group="primary" data-tab="description">
-        <img class="logo" src="systems/deadlandsc/assets/logo.png" style="display:block;border:none;width:30%;margin-left: auto;margin-right: auto;"> 
-            <h1 class="wanted">Wanted</h1>
-            <h2 class="dead">Dead or Alive</h2>
-              <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="
-              250" width="250" style="box-sizing: border-box;border: 1px solid var(--color-border-dark);border-radius: 2px;margin-left: calc(50% - 125px);filter: sepia(1);"/>
-              <h4 class="nomprime"><input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'DEADLANDSC.ActorNom'}}" style="height: 50px;border: none;"/></h4>
-              <input name="system.metier" type="text" value="{{data.system.metier}}" placeholder="{{localize 'DEADLANDSC.ActorMetier'}}" style="text-align: center;font-size: 1.2em;margin-top: -40px;margin-bottom: 20px;border: none;"/>
-              <h4 class="valeurprime">$ <input name="system.crédit" type="text" value="{{data.system.crédit}}" style="border: none;width: 50%;height: 49px;padding: 0;top: -11px;position: relative;
-      font-size: 0.7em;"/> reward</h4>
+  <div class="col3">
+    <div class="avis" style="height: 168px;">
+      <div class="avatar">
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"  style="box-sizing: border-box;border: 1px solid var(--color-border-dark);filter: sepia(1);"/>
+        <h4 class="valeurprime">$ <input name="system.crédit" type="text" value="{{actor.system.crédit}}" style="width: 86px;padding: 0;text-align: left;"/> reward</h4>
       </div>
-
-        {{!-- Biography Tab --}}
-        <div class="tab biography" data-group="primary" data-tab="home">
-
-          <header class="sheet-header">       
-            <div class="flexcol header-fields">        
-                <h2>Allure : {{data.system.allure}}</h2>
-                <h2>souffle : {{data.system.souffle}}<a class="PSadd">+</a>/<a class="PSsub">-</a></h2>
-                <h2>souffle Max : {{data.system.souffleMax}}</h2>
-              </div>
-          </header>
-          
-          <h1>{{localize "DEADLANDSC.Biographie"}}</h1>
-            <textarea class="histoire" name="system.biography">{{data.system.biography}}</textarea>
+      <div class="titre">
+        <h1 class="wanted">Wanted</h1>
+        <h2 class="dead">Dead or Alive</h2>
+        <h4 class="nomprime"><input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'DEADLANDSC.ActorNom'}}" style=";border: none;"/></h4>
+        <input name="system.metier" type="text" value="{{actor.system.metier}}" placeholder="{{localize 'DEADLANDSC.ActorMetier'}}" style="text-align: center;font-size: 1em;"/>
+      </div>
+    </div>
+    <div class="avis" style="height:304px">
+      <h1>{{localize "DEADLANDSC.Biographie"}}</h1>
+            <textarea class="histoire" name="system.biography">{{data.data.biography}}</textarea>
             <h1>{{localize "DEADLANDSC.ActorTabCauchemar"}}</h1>
-            <textarea class="histoire" name="system.cauchemar">{{data.system.cauchemar}}</textarea>
-        </div>
-
-        {{!-- Carac Tab --}}
-        <div class="tab carac" data-group="primary" data-tab="carac">
-          <div class="flexrow flex-group-center">
-            <div class="col2">
-              <div class="flexcol flex-group-center">
-                <h1 class="titre">{{localize "DEADLANDSC.ActorMental"}}</h1>              
-                {{#each data.system.mental as |carac key|}}
-                <div class="caracheader">
-                  <div class="caraclabel">{{localize key}}</div>
-                  <div class="caracdice">
-                    <input type="text" class="carac" maxlength="1" size="1" name="system.mental.{{key}}.coordination" value="{{carac.coordination}}" data-dtype="Number"/>
-                    D
-                    <input type="text" class="carac" maxlength="2" size="2" name="system.mental.{{key}}.de" value="{{carac.de}}" data-dtype="Number"/>
-                  </div>
-                  {{#each (lookup ../skills key)}}
-                  <div class="caraclabel">
-                    <input type="text" class="" name="system.skills.{{key}}.{{@index}}.skill" value="{{this.skill}}" data-dtype="String"/>
-                  </div>
-                  <div class="caracdice">
-                    <input type="text" class="carac" maxlength="1" size="1" name="system.skills.{{key}}.{{@index}}.valeur" value="{{this.valeur}}" data-dtype="Number"/>
-                    {{#ifCond this.valeur 0 }}
-                    <span class="ability-mod rollable" data-roll="round({ {{#timesdice ../this.coordination}}1d{{../this.de}}x{{/timesdice}} }kh/2)" data-label="{{this.skill}}"><i class="fas fa-dice-d20"></i></span>
-                    {{else}}
-                    <span class="ability-mod rollable" data-roll="{ {{#timesdice this.valeur}}1d{{../this.de}}x{{/timesdice}} }kh" data-label="{{this.skill}}"><i class="fas fa-dice-d20"></i></span>
-                    {{/ifCond}}
-                  </div>
-                  {{/each}}
-                </div>  
-                {{/each}}
-
+            <textarea class="histoire" name="system.cauchemar">{{data.data.cauchemar}}</textarea>
+    </div>
+    <div class="avis" style="height:218px">
+        <div class="col21">
+          <h1>{{localize "DEADLANDSC.Atouts"}}</h1>
+          {{#each atouts as |item id|}}
+            <div class="flexcol">
+              <div class="flexrow">
+                <h2>{{item.name}}</h2>
+                <h2 style="text-align: right">{{item.data.cout}}</h2>
               </div>
-
-              <div class="flexcol flex-group-center">
-                <h1 class="titre">{{localize "DEADLANDSC.ActorPhysique"}}</h1>              
-                {{#each data.system.physique as |carac key|}}
-                <div class="caracheader">
-                  <div class="caraclabel">{{localize key}}</div>
-                  <div class="caracdice">
-                    <input type="text" class="carac" maxlength="1" size="1" name="system.physique.{{key}}.coordination" value="{{carac.coordination}}" data-dtype="Number"/>
-                    D
-                    <input type="text" class="carac" maxlength="2" size="2" name="system.physique.{{key}}.de" value="{{carac.de}}" data-dtype="Number"/>
-                  </div>
-                  {{#each (lookup ../skills key)}}
-                  <div class="caraclabel">
-                    <input type="text" class="" name="system.skills.{{key}}.{{@index}}.skill" value="{{this.skill}}" data-dtype="String"/>
-                  </div>
-                  <div class="caracdice">
-                    <input type="text" class="carac" maxlength="1" size="1" name="system.skills.{{key}}.{{@index}}.valeur" value="{{this.valeur}}" data-dtype="Number"/>
-                    {{#ifCond this.valeur 0 }}
-                    <span class="ability-mod rollable" data-roll="round({ {{#timesdice ../this.coordination}}1d{{../this.de}}x{{/timesdice}} }kh/2)" data-label="{{this.skill}}">D<i class="fas fa-dice-d20"></i></span>
-                    {{else}}
-                    <span class="ability-mod rollable" data-roll="{ {{#timesdice this.valeur}}1d{{../this.de}}x{{/timesdice}} }kh" data-label="{{this.skill}}"><i class="fas fa-dice-d20"></i></span>
-                    {{/ifCond}}
-                  </div>
-                  {{/each}}
-                </div>  
-                {{/each}}
-              </div>
+              <div>{{item.data.description}}</div>
             </div>
-            <div class="col2">
-              <h1 class="titre">{{localize "DEADLANDSC.Atouts"}}</h1>
-              {{#each actor.atouts as |item id|}}
-              <div class="flexcol desc">
-                <div class="flexrow">
-                  <h2 style="display:contents;">{{item.name}}</h2>
-                  <h2 style="text-align: right">{{item.system.cout}}</h2>
-                </div>
-                <div style="text-align: left">{{item.system.description}}</div>
+            {{/each}}
+            <h1>{{localize "DEADLANDSC.Handicaps"}}</h1>
+            {{#each handicaps as |item id|}}
+            <div class="flexcol">
+              <div class="flexrow">
+                <h2>{{item.name}}</h2>
+                <h2 style="text-align: right">{{item.data.cout}}</h2>
               </div>
-              {{/each}}
-              <h1 class="titre">{{localize "DEADLANDSC.Handicaps"}}</h1>
-              {{#each actor.handicaps as |item id|}}
-              <div class="flexcol desc">
-                <div class="flexrow">
-                  <h2 style="display:contents;">{{item.name}}</h2>
-                  <h2 style="text-align: right">{{item.system.cout}}</h2>
-                </div>
-                <div style="text-align: left">{{item.system.description}}</div>
-              </div>
-              {{/each}}
+              <div>{{item.data.description}}</div>
             </div>
-
-          </div>  
+         {{/each}}
         </div>
-
-        {{!-- Owned Items Tab --}}
-        <div class="tab items" data-group="primary" data-tab="items">
-              <div class="col2" style="text-align: center">
+          
+       
+          <div class="col21">              
+                <h2>Allure : {{actor.system.allure}}</h2>
+                <h2>souffle : {{actor.system.souffle}}<a class="PSadd">+</a>/<a class="PSsub">-</a></h2>
+                <h2>souffle Max : {{actor.system.souffleMax}}</h2>
+          </div>
+    </div>
+  </div>
+  <div class="col3">
+    <div class="avis" style="height: 700px;">
+      <img class="logo" src="systems/deadlandsc/assets/logo.png" style="display:block;border:none;width:90%;margin-left: auto;margin-right: auto;">
+      <div class="colo" style="position: relative;top:0px;margin-bottom: 0px;">
+            <div class="z1"></div>
+            <div class="z2"></div>
+            <div class="z3"></div>
+            <div class="z4"></div>
+            <div class="z5"></div>    
+            <div class="z6"></div>    
+          </div>
+          <div class="santes">
+            <div class="zone tete">
+              <div class="bar" style="width:100px"></div>
+              <input class="refbar" data-zone="tete" name="system.btete" type="text" value="{{actor.system.btete}}" placeholder="Tete"/>
+            </div>
+            <div class="zone bd">
+              <div class="bar" style="width:100px"></div>
+              <input class="refbar" data-zone="bd" name="system.bbrasdroit" type="text" value="{{actor.system.bbrasdroit}}" placeholder="bd" style=""/>
+            </div>
+            <div class="zone torse">
+              <div class="bar" style="width:100px"></div>
+              <input class="refbar" data-zone="torse" name="system.btripes" type="text" value="{{actor.system.btripes}}" placeholder="torse"/>
+            </div>
+            <div class="zone bg">
+              <div class="bar" style="width:100px"></div>
+              <input class="refbar" data-zone="bg" name="system.bbrasgauche" type="text" value="{{actor.system.bbrasgauche}}" placeholder="bg"/>
+            </div>
+            <div class="zone jd">
+              <div class="bar" style="width:100px"></div>
+              <input class="refbar" data-zone="jd" name="system.bjambedroite" type="text" value="{{actor.system.bjambedroite}}" placeholder="jb"/>
+            </div>
+            <div class="zone jg">
+              <div class="bar" style="width:100px"></div>
+              <input class="refbar" data-zone="jg" name="system.bjambegauche" type="text" value="{{actor.system.bjambegauche}}" placeholder="jg"/>
+            </div>
+          </div>
+          <div class="clear"></div>
+          <div class="col2" style="text-align: center">
                 <h1>{{localize "DEADLANDSC.gauche"}}</h1>
-                <span class="icongun"></span><input  class="armeg" name="system.armeg" type="text" value="{{data.system.armeg}}" title="{{data.system.armeg}}" placeholder="Arme" readonly="" /><button class="desequi" data-genre="armeg">🗑</button>
-                <span class="iconcha"></span><input  class="chargeg" name="system.chargeg" type="text" value="{{data.system.chargeg}}" title="{{data.system.chargeg}}" placeholder="Chargeur" readonly="" /><button class="desequi" data-genre="chargeurg">🗑</button> 
-              </div>
+                <span class="icongun"></span><input  class="armeg" name="system.armeg" type="text" value="{{actor.system.armeg}}" title="{{data.data.armeg}}" placeholder="Arme" readonly="" /><button class="desequi" data-genre="armeg">🗑</button>
+                <span class="iconcha"></span><input  class="chargeg" name="system.chargeg" type="text" value="{{actor.system.chargeg}}" title="{{data.data.chargeg}}" placeholder="Chargeur" readonly="" /><button class="desequi" data-genre="chargeurg">🗑</button> 
+          </div>
               <div class="col2" style="text-align: center">
                 <h1>{{localize "DEADLANDSC.droite"}}</h1>
-                <span class="icongun"></span><input  class="armed" name="system.armed" type="text" value="{{data.system.armed}}" title="{{data.system.armed}}" placeholder="Arme" readonly="" /><button class="desequi" data-genre="armed">🗑</button>
-                <span class="iconcha"></span><input  class="charged" name="system.charged" type="text" value="{{data.system.charged}}" title="{{data.system.charged}}" placeholder="Chargeur" readonly="" /><button class="desequi" data-genre="chargeurd">🗑</button> 
-              </div>
+                <span class="icongun"></span><input  class="armed" name="system.armed" type="text" value="{{actor.system.armed}}" title="{{data.data.armed}}" placeholder="Arme" readonly="" /><button class="desequi" data-genre="armed">🗑</button>
+                <span class="iconcha"></span><input  class="charged" name="system.charged" type="text" value="{{actor.system.charged}}" title="{{data.data.charged}}" placeholder="Chargeur" readonly="" /><button class="desequi" data-genre="chargeurd">🗑</button> 
+          </div>
+        </div> 
+    </div>
+  </div>
+  <div class="col3">
+    <div class="avis" style="height:50px">
+      {{!-- Top --}}
+      {{!-- Sheet Tab Navigation --}}
+      <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="items" title="{{localize 'DEADLANDSC.ActorTabItems'}}">♠</a>
+        <a class="item" data-tab="carac" title="{{localize 'DEADLANDSC.ActorTabCarac'}}">♣</a>
+        <a class="item" data-tab="spells" title="{{localize 'DEADLANDSC.ActorTabSpells'}}">♥</a>
+        <a class="item" data-tab="lab" title="{{localize 'DEADLANDSC.ActorTabLab'}}">♦</a>        
+      </nav>
+    </div>
+    {{!-- Sheet Body --}}
+    <section class="sheet-body avis" style="height:640px;padding:5px;overflow:auto">
+
+      {{!-- Description Tab --}}
+        {{!-- Owned Items Tab --}}
+        <div class="tab items" data-group="primary" data-tab="items">
+              
               
             <h1>{{localize "DEADLANDSC.Armes"}}</h1>
             <ol class="items-list">
                 <li class="item flexrow item-header">
                   <div class="item-image"></div>
                   <div class="item-name">Nom</div>
-                  <!--div class="item-equipe">Equipé</div-->
+                  <div class="item-equipe">Equipé</div>
                   <div class="item-autoreload">Auto</div>
                   <div class="item-barillet">Baril.</div>
                   <div class="item-munitions">Munit.</div>
                   <div class="item-portée">Ptée</div>
                   <div class="item-CDT">CDT</div>                  
-                  <div class="item-dommage">Dge</div>
+                  <div class="item-dommage">Dgt</div>
                   <div class="item-poids">Pds</div>
                   <div class="item-force">F. Min</div>
                   <div class="item-controls">
                     <a class="item-control item-create" title="Create item" data-type="armes"><i class="fas fa-plus"></i> Add item</a>
                   </div>
                 </li>
-            {{#each actor.armes as |item id|}}
+            {{#each items as |item id|}}
                 <li class="item flexrow" data-item-id="{{item._id}}">
-                    <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+                    <div class="item-image"><a class="rollable" data-roll-type="item"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></a></div>
                     <h4 class="item-name">{{item.name}}</h4>
-                    <!--h4 class="item-equipe">{{item.system.equipé}}</h4-->
+                    <h4 class="item-equipe">{{item.system.equipé}}</h4>
                     <h4 class="item-autoreload">{{item.system.autoReload}}</h4>
-                    <h4 class="item-barillet">{{item.system.coups}} / {{item.system.chargeur}}</h4>
+                    <h4 class="item-barillet">{{item.system.coups}} / {{item.chargeur}}</h4>
                     <h4 class="item-munitions">{{item.system.munitions}}</h4>
                     <h4 class="item-portée">{{item.system.portée}}</h4>
                     <h4 class="item-CDT">{{item.system.CDT}}</h4>
@@ -174,14 +152,14 @@
                     <h4 class="item-poids">{{item.system.poids}}</h4>
                     <h4 class="item-force">{{item.system.formin}}</h4>
                     <div class="item-controls">
-                        <span class="maingauche" title="main gauche" data-equip="gauche" data-name="{{item.name}}" data-genre="arme"></span><span class="maindroite" title="main droite" data-equip="droite" data-name="{{item.name}}" data-genre="arme"></span>
+                        <span class="maingauche" title="main gauche" data-equip="gauche" data-name="{{item.name}}" data-genre="arme"></span>
+                        <span class="maindroite" title="main droite" data-equip="droite" data-name="{{item.name}}" data-genre="arme"></span>
                         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                         <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                     </div>
                 </li>
             {{/each}}
             </ol>
-            <h1>{{localize "DEADLANDSC.charger"}}</h1>
             <ol class="items-list">
                 <li class="item flexrow item-header">
                   <div class="item-image"></div>
@@ -192,24 +170,91 @@
                     <a class="item-control item-create" title="Create item" data-type="feature"><i class="fas fa-plus"></i> Add item</a>
                   </div>
                 </li>
-            {{#each actor.munitions as |item id|}}
+            {{#each features as |item id|}}
                 <li class="item flexrow" data-item-id="{{item._id}}">
                     <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
                     <h4 class="item-name">{{item.name}}</h4>
                     <h4 class="item-type">{{item.type}}</h4>
                     <h4 class="item-prix">{{item.prix}}</h4>
                     <div class="item-controls">
-                        <span class="maingauche" title="main gauche" data-equip="gauche" data-name="{{item.name}}" data-genre="chargeur"></span><span class="maindroite" title="main droite" data-equip="droite" data-name="{{item.name}}" data-genre="chargeur"></span>
+                        <span class="maingauche" title="main gauche" data-equip="gauche" data-name="{{item.name}}" data-genre="chargeur"></span>
+                        <span class="maindroite" title="main droite" data-equip="droite" data-name="{{item.name}}" data-genre="chargeur"></span>
                         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                         <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                     </div>
                 </li>
             {{/each}}
             </ol>
-
-            
         </div>
+        {{!-- Carac Tab --}}
+        <div class="tab carac" data-group="primary" data-tab="carac">
 
+            <div class="col21">
+                <h1 class="titres">{{localize "DEADLANDSC.ActorMental"}}</h1>              
+              {{#each actor.system.mental as |carac key|}}
+              <div class="caracheader">
+                <div class="caraclabel">{{localize key}}</div>
+                <div class="caracdice">
+                  <input type="text" class="carac" maxlength="1" size="1" name="system.mental.{{key}}.coordination" value="{{carac.coordination}}" data-dtype="Number"/>
+                  D
+                  <input type="text" class="carac" maxlength="2" size="2" name="system.mental.{{key}}.de" value="{{carac.de}}" data-dtype="Number"/>
+                </div>
+                {{#each (lookup ../actor.system.skills key)}}
+                <div class="caraclabel">
+                  <input type="text" class="" name="system.skills.{{key}}.{{@index}}.skill" value="{{this.skill}}" data-dtype="String"/>
+                </div>
+                <div class="caracdice">
+                  <input type="text" class="carac" maxlength="1" size="1" name="system.skills.{{key}}.{{@index}}.valeur" value="{{this.valeur}}" data-dtype="Number"/>
+                  {{#ifCond this.valeur 0 }}
+                  <span class="ability-mod rollable" data-roll="round({ {{#timesdice ../this.coordination}}1d{{../this.de}}x{{/timesdice}} }kh/2)" data-label="{{this.skill}}"><i class="fas fa-dice-d20"></i></span>
+                  {{else}}
+                  <span class="ability-mod rollable" data-roll="{ {{#timesdice this.valeur}}1d{{../this.de}}x{{/timesdice}} }kh" data-label="{{this.skill}}"><i class="fas fa-dice-d20"></i></span>
+                  {{/ifCond}}
+                </div>
+                {{/each}}
+              </div>  
+              {{/each}}
+            </div>
+
+            <div class="col21">
+                <h1 class="titres">{{localize "DEADLANDSC.ActorPhysique"}}</h1>              
+              {{#each actor.system.physique as |carac key|}}
+              <div class="caracheader">
+                <div class="caraclabel">{{localize key}}</div>
+                <div class="caracdice">
+                  <input type="text" class="carac" maxlength="1" size="1" name="system.physique.{{key}}.coordination" value="{{carac.coordination}}" data-dtype="Number"/>
+                  D
+                  <input type="text" class="carac" maxlength="2" size="2" name="system.physique.{{key}}.de" value="{{carac.de}}" data-dtype="Number"/>
+                </div>
+                {{#each (lookup ../actor.system.skills key)}}
+                <div class="caraclabel">
+                  <input type="text" class="" name="system.skills.{{key}}.{{@index}}.skill" value="{{this.skill}}" data-dtype="String"/>
+                </div>
+                <div class="caracdice">
+                  <input type="text" class="carac" maxlength="1" size="1" name="system.skills.{{key}}.{{@index}}.valeur" value="{{this.valeur}}" data-dtype="Number"/>
+                  {{#ifCond this.valeur 0 }}
+                  <span class="ability-mod rollable" data-roll="round({ {{#timesdice ../this.coordination}}1d{{../this.de}}x{{/timesdice}} }kh/2)" data-label="{{this.skill}}"><i class="fas fa-dice-d20"></i></span>
+                  {{else}}
+                  <span class="ability-mod rollable" data-roll="{ {{#timesdice this.valeur}}1d{{../this.de}}x{{/timesdice}} }kh" data-label="{{this.skill}}"><i class="fas fa-dice-d20"></i></span>
+                  {{/ifCond}}
+                </div>
+                {{/each}}
+              </div>  
+              {{/each}}
+            </div>
+
+            <!--div class="flexcol flex-group-center">
+              <h1>{{localize "DEADLANDSC.Blessures"}}</h1>
+              <a class="jauge btete"><span class="jauge-remplissage jauge-remplissage-{{data.btete}}"></span><img src="systems/deadlandsc/assets/blessure-tête.png" class="img-blessure"/></a>
+              <a class="jauge bbrasdroit"><span class="jauge-remplissage jauge-remplissage-{{data.bbrasdroit}}"></span><img src="systems/deadlandsc/assets/blessure-bras-droit.png" class="img-blessure"/></a>
+              <a class="jauge bbrasgauche"><span class="jauge-remplissage jauge-remplissage-{{data.bbrasgauche}}"></span><img src="systems/deadlandsc/assets/blessure-bras-gauche.png" class="img-blessure"/></a>
+              <a class="jauge btripes"><span class="jauge-remplissage jauge-remplissage-{{data.btripes}}"></span><img src="systems/deadlandsc/assets/blessure-tripes.png" class="img-blessure"/></a>
+              <a class="jauge bjambedroite"><span class="jauge-remplissage jauge-remplissage-{{data.bjambedroite}}"></span><img src="systems/deadlandsc/assets/blessure-jambe-droite.png" class="img-blessure"/></a>
+              <a class="jauge bjambegauche"><span class="jauge-remplissage jauge-remplissage-{{data.bjambegauche}}"></span><img src="systems/deadlandsc/assets/blessure-jambe-gauche.png" class="img-blessure"/></a>
+            </div-->
+
+          </div>  
+        </div>
 
         {{!-- Owned Pouvoirs Tab --}}
         <div class="tab spells" data-group="primary" data-tab="spells">
@@ -244,7 +289,7 @@
                     <a class="item-control item-create" title="Create item" data-type="spell"><i class="fas fa-plus"></i> Add item</a>
                   </div>
                 </li>
-            {{#each actor.pouvoirs as |item id|}}
+            {{#each pouvoirs as |item id|}}
                 <li class="item flexrow" data-item-id="{{item._id}}">
                     <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
                     <h4 class="item-name">{{item.name}}</h4>
@@ -255,45 +300,6 @@
                 </li>
             {{/each}}
             </ol>
-        </div>
-        {{!-- Sante Tab --}}
-        <div class="tab sante" data-group="primary" data-tab="sante">
-          
-          
-          <div class="colo" style="position: relative;top:0px;margin-bottom: 0px;">
-            <div class="z1"></div>
-            <div class="z2"></div>
-            <div class="z3"></div>
-            <div class="z4"></div>
-            <div class="z5"></div>    
-            <div class="z6"></div>    
-          </div>
-          <div class="santes">
-            <div class="zone tete">
-              <div class="bar" style="width:100px"></div>
-              <input class="refbar" data-zone="tete" name="system.tete" type="text" value="{{data.system.tete}}" placeholder="Tete"/>
-            </div>
-            <div class="zone bd">
-              <div class="bar" style="width:100px"></div>
-              <input class="refbar" data-zone="bd" name="system.bd" type="text" value="{{data.system.bd}}" placeholder="bd" style=""/>
-            </div>
-            <div class="zone torse">
-              <div class="bar" style="width:100px"></div>
-              <input class="refbar" data-zone="torse" name="system.torse" type="text" value="{{data.system.torse}}" placeholder="torse"/>
-            </div>
-            <div class="zone bg">
-              <div class="bar" style="width:100px"></div>
-              <input class="refbar" data-zone="bg" name="system.bg" type="text" value="{{data.system.bg}}" placeholder="bg"/>
-            </div>
-            <div class="zone jd">
-              <div class="bar" style="width:100px"></div>
-              <input class="refbar" data-zone="jd" name="system.jd" type="text" value="{{data.system.jd}}" placeholder="jb"/>
-            </div>
-            <div class="zone jg">
-              <div class="bar" style="width:100px"></div>
-              <input class="refbar" data-zone="jg" name="system.jg" type="text" value="{{data.system.jg}}" placeholder="jg"/>
-            </div>
-          </div>
         </div>
         {{!-- Lab Tab --}}
         <div class="tab lab" data-group="primary" data-tab="lab">
@@ -312,5 +318,6 @@
         </div>
 
     </section>
-    <div class="clear"></div>
+  </div>
+    
 </form>

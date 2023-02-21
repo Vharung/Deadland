@@ -4,10 +4,6 @@
     "templates": {
       "base": {
         "metier":"",
-        "armed":"",
-        "armeg":"",
-        "charged":"",
-        "chargeg":"",
         "mental": {
           "perception": {
             "coordination": 1,
@@ -51,6 +47,9 @@
             "coordination": 1,
             "de": 4
           }
+        },
+        "allure": {
+          "value": 5
         }
       },
       "blessures": {
